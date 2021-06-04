@@ -7,5 +7,5 @@ This game allows two close members of a household (most likely family members) t
 Austin Kim \
 David Do \
 Vibha Rajagopalan (vibha@csu.fullerton.edu) \
-Brandon Evans \
+Brandon Evans BrandonEvans@csu.fullerton.edu \
 Kavya Jayarama Reddy (kavyajayarama@csu.fullerton.edu)
