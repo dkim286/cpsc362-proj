@@ -6,4 +6,4 @@ This game allows two close members of a household (most likely family members) t
 Contributors:
 Austin Kim
 David Do
-Vibha Rajagopalan
+Vibha Rajagopalan (vibha@csu.fullerton.edu)
