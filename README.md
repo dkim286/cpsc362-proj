@@ -4,8 +4,8 @@ In these trying times, people need some kind of mental stimulation to decompress
 This game allows two close members of a household (most likely family members) to play a time-tested game and connect together.
 
 # Contributors:
-Austin Kim \
-David Do \
-Vibha Rajagopalan (vibha@csu.fullerton.edu) \
-Brandon Evans BrandonEvans@csu.fullerton.edu \
-Kavya Jayarama Reddy (kavyajayarama@csu.fullerton.edu)
+* Austin Kim (dkim286@csu.fullerton.edu)
+* David Do 
+* Vibha Rajagopalan (vibha@csu.fullerton.edu) 
+* Brandon Evans BrandonEvans@csu.fullerton.edu 
+* Kavya Jayarama Reddy (kavyajayarama@csu.fullerton.edu)
