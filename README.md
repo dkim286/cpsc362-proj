@@ -5,7 +5,7 @@ This game allows two close members of a household (most likely family members) t
 
 # Contributors:
 * Austin Kim (dkim286@csu.fullerton.edu)
-* David Do 
+* David Do (davidqdo@csu.fullerton.edu)
 * Vibha Rajagopalan (vibha@csu.fullerton.edu) 
-* Brandon Evans BrandonEvans@csu.fullerton.edu 
+* Brandon Evans (BrandonEvans@csu.fullerton.edu) 
 * Kavya Jayarama Reddy (kavyajayarama@csu.fullerton.edu)
