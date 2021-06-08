@@ -1,3 +1,5 @@
+import pygame as pg
+
 class Game:
     '''
     A class that represents the game's state.
