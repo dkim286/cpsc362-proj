@@ -1,26 +1,94 @@
-'''
-Manages and manipulates the board, e.g. functions to actually change the state
-of the Game object.
-'''
-import game.py
-#going to need to import the width and height of the screen from game.py
+import pygame as pg
+from dimensions.py import BOARD_WIDTH as width, BOARD_HEIGHT as height
 
 class Board:
-
     # setting up a 3 * 3 board in canvas
+    board = [[None] * 3, [None] * 3, [None] * 3]
     
     # initializer with instance attributes
     def __init__(self):
+        # initializing the pygame window
+        pg.init()
 
-    # this function checks if a token can be placed
-    def checkBoardForSpace(self, x, y, token):
-        
+        # this method builds the infastructure of the display
+        screen = pg.display.set_mode((width, height + 100), 0, 32)
 
-    def drawToken(self, row, col, token):
+        pg.display.set_caption("Tic Tac Toe")
 
-    # this function will check if the board is full and a tie
-    def isFull(self):
+        # loading the images as python object
+        x_img = pg.image.load("img/x.png")
+        y_img = pg.image.load("img/y.png")
 
-    # check if there is a winner by calling the check functions, this will return either the winner or ' '
-    def checkWin(self):
+        # resizing images
+        initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
+        x_img = pg.transform.scale(x_img, (80, 80))
+        o_img = pg.transform.scale(y_img, (80, 80))
+
+        # displaying over the screen
+        screen.blit(initiating_window, (0, 0))
+
+        # updating the display
+        pg.display.update()
+        screen.fill(255, 255, 255)
+
+        # drawing vertical lines
+        pg.draw.line(screen, line_color, (width / 3, 0), (width / 3, height), 7)
+        pg.draw.line(screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
+
+        # drawing horizontal lines
+        pg.draw.line(screen, line_color, (0, height / 3), (width, height / 3), 7)
+        pg.draw.line(screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7)
+
+    def drawToken(self, token):
+
+        # get coordinates of mouse click
+        x, y = pg.mouse.get_pos()
+
+        # get column of mouse click
+        if( x < width / 3):
+            col = 1
+        elif (x < width / 3 * 2):
+            col = 2
+        elif(x < width):
+            col = 3
+        else:
+            col = None
+    
+        # get row of mouse click
+        if(y < height / 3):
+            row = 1
+        elif (y < height / 3 * 2):
+            row = 2
+        elif(y<height):
+            row = 3 
+        else:
+            row = None
+
+        if(row and col):
+            # Find the x cordinate for the rows for the token to be placed
+            if row == 1:
+                posx = 30
+            elif row == 2:
+                posx = width / 3 + 30
+            else
+                posx = width / 3 * 2 + 30
+
+            # Find the y cordinate for the rows for the token to be placed
+            if col == 1:
+                posy = 30
+            elif col == 2:
+                posy = height / 3 + 30
+            else:
+                posy = height / 3 * 2 + 30
+
+            # Place the token
+            board[row - 1][col - 1] = token
+
+            if token == 'X' or token == 'x':
+                screen.blit(x_img, (posy, posx))
+            else:
+                screen.blit(o_img, (posy, posx))
+            
+            pg.display.update()
+
         
