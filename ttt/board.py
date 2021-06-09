@@ -1,5 +1,5 @@
 import pygame as pg
-from dimensions.py import BOARD_WIDTH as width, BOARD_HEIGHT as height
+from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_LINE as line_color, TTT as board
 
 class Board:
     # setting up a 3 * 3 board in canvas
@@ -9,6 +9,8 @@ class Board:
     def __init__(self):
         # initializing the pygame window
         pg.init()
+        screen = pg.display.set_mode((width, height + 100), 0, 32)
+        pg.display.set_caption("Tic Tac Toe")
 
         # this method builds the infastructure of the display
         screen = pg.display.set_mode((width, height + 100), 0, 32)
@@ -16,13 +18,14 @@ class Board:
         pg.display.set_caption("Tic Tac Toe")
 
         # loading the images as python object
+        initiating_window = pg.image.load('img/ttt_opening.jpg')
         x_img = pg.image.load("img/x.png")
         y_img = pg.image.load("img/y.png")
 
         # resizing images
         initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
         x_img = pg.transform.scale(x_img, (80, 80))
-        o_img = pg.transform.scale(y_img, (80, 80))
+        y_img = pg.transform.scale(y_img, (80, 80))
 
         # displaying over the screen
         screen.blit(initiating_window, (0, 0))
@@ -70,7 +73,7 @@ class Board:
                 posx = 30
             elif row == 2:
                 posx = width / 3 + 30
-            else
+            else:
                 posx = width / 3 * 2 + 30
 
             # Find the y cordinate for the rows for the token to be placed
@@ -87,7 +90,7 @@ class Board:
             if token == 'X' or token == 'x':
                 screen.blit(x_img, (posy, posx))
             else:
-                screen.blit(o_img, (posy, posx))
+                screen.blit(y_img, (posy, posx))
             
             pg.display.update()
 

@@ -25,6 +25,10 @@ All definitions are compatible with PyGame's coordinate and rectangle tuples:
 # Playable area dimension (board).
 BOARD_WIDTH = 400
 BOARD_HEIGHT = 400
+BOARD_LINE = (10, 10, 10)
+
+#TicTacToe 3x3 board
+TTT = [[None]*3,[None]*3,[None]*3]
 
 # Playable area's dimension as a size tuple.
 BOARD_SIZE = (BOARD_WIDTH, BOARD_HEIGHT)
