@@ -93,8 +93,8 @@ class Board:
         pg.draw.line(screen, (250,0,0), (0, (row + 1) * height / 3 - height / 6),\
                             (width, (row + 1) * height / 3 - height / 6 ), 4)
     def drawColumnLine(self, column):
-        pg.draw.line (screen, (250,0,0),((col + 1) * width / 3 - width / 6, 0),\
-                     ((col + 1) * width / 3 - width / 6, height), 4)
+        pg.draw.line (screen, (250,0,0),((column + 1) * width / 3 - width / 6, 0),\
+                     ((column + 1) * width / 3 - width / 6, height), 4)
     
     # Draw the winning line diagonally from right to left
     def drawDiagonalRTL(self):
