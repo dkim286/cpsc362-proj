@@ -1,10 +1,7 @@
 import pygame as pg
 from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_LINE as line_color, TTT as board
 
-class Board:
-    # setting up a 3 * 3 board in canvas
-    board = [[None] * 3, [None] * 3, [None] * 3]
-    
+class Board:    
     # initializer with instance attributes
     def __init__(self):
         # initializing the pygame window
@@ -18,12 +15,12 @@ class Board:
         # loading the images as python object
         initiating_window = pg.image.load('img/ttt_opening.jpg')
         x_img = pg.image.load("img/x.png")
-        y_img = pg.image.load("img/y.png")
+        o_img = pg.image.load("img/o.png")
 
         # resizing images
         initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
         x_img = pg.transform.scale(x_img, (80, 80))
-        y_img = pg.transform.scale(y_img, (80, 80))
+        o_img = pg.transform.scale(o_img, (80, 80))
 
         # displaying over the screen
         screen.blit(initiating_window, (0, 0))
@@ -88,7 +85,7 @@ class Board:
             if token == 'X' or token == 'x':
                 screen.blit(x_img, (posy, posx))
             else:
-                screen.blit(y_img, (posy, posx))
+                screen.blit(o_img, (posy, posx))
             
             pg.display.update()
 
