@@ -20,8 +20,8 @@ class Board:
 
         # resizing images
         initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
-        self.x_img = pg.transform.scale(x_img, (80, 80))
-        self.o_img = pg.transform.scale(o_img, (80, 80))
+        self.x_img = pg.transform.scale(self.x_img, (80, 80))
+        self.o_img = pg.transform.scale(self.o_img, (80, 80))
 
         # displaying over the screen
         self.screen.blit(initiating_window, (0, 0))
