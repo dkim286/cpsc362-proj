@@ -15,5 +15,9 @@ def main():
     print('I made a Game object.')
     print ('Red is: {}'.format(color_to_str(RED)))
 
+    # call checkBoardForSpace
+    # call drawToken
+    # call isFull
+    # call checkWin
 if __name__ == '__main__':
     main()
