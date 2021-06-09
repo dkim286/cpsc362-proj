@@ -1,6 +1,6 @@
 import pygame as pg
 from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_LINE as line_color, TTT as board
-from ttt.color.py import WHITE
+from ttt.colors import WHITE
 
 class Board:
     # initializer with instance attributes
@@ -15,13 +15,13 @@ class Board:
 
         # loading the images as python object
         initiating_window = pg.image.load('img/ttt_opening.jpg')
-        x_img = pg.image.load("img/x.png")
-        o_img = pg.image.load("img/o.png")
+        self.x_img = pg.image.load("img/x.png")
+        self.o_img = pg.image.load("img/o.png")
 
         # resizing images
         initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
-        x_img = pg.transform.scale(x_img, (80, 80))
-        o_img = pg.transform.scale(o_img, (80, 80))
+        self.x_img = pg.transform.scale(x_img, (80, 80))
+        self.o_img = pg.transform.scale(o_img, (80, 80))
 
         # displaying over the screen
         self.screen.blit(initiating_window, (0, 0))
@@ -32,7 +32,7 @@ class Board:
 
         # drawing vertical lines
         pg.draw.line(self.screen, line_color, (width / 3, 0), (width / 3, height), 7)
-        pg.draw.line(screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
+        pg.draw.line(self.screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
 
         # drawing horizontal lines
         pg.draw.line(self.screen, line_color, (0, height / 3), (width, height / 3), 7)
@@ -84,9 +84,9 @@ class Board:
             board[row - 1][col - 1] = token
 
             if token == 'X' or token == 'x':
-                self.screen.blit(x_img, (posy, posx))
+                self.screen.blit(self.x_img, (posy, posx))
             else:
-                self.screen.blit(o_img, (posy, posx))
+                self.screen.blit(self.o_img, (posy, posx))
             
             pg.display.update()
 
@@ -104,5 +104,3 @@ class Board:
     # Draw the winning line diagonally from left to right
     def drawDiagonalLTR(self):
         pg.draw.line (self.screen, (250,70,70), (50, 50), (350, 350), 4)
-
-        
