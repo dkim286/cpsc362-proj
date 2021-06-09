@@ -8,6 +8,7 @@ import pygame as pg
 
 from ttt.game import Game
 from ttt.colors import *
+from ttt.board import *
 
 def main():
     game = Game()
