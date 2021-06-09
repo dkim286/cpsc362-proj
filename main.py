@@ -8,8 +8,7 @@ import pygame as pg
 
 from ttt.game import Game
 from ttt.colors import *
-from ttt.board import Board
-#from ttt.board import * //Depending on what gets imported into board.py
+from ttt.board import *
 #from ttt.cpu import *
 
 
