@@ -1,6 +1,6 @@
 import pygame as pg
 from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_LINE as line_color, TTT as board
-from color.py import WHITE
+from ttt.color.py import WHITE
 
 class Board:
     # initializer with instance attributes
