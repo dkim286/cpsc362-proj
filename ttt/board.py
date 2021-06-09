@@ -9,8 +9,6 @@ class Board:
     def __init__(self):
         # initializing the pygame window
         pg.init()
-        screen = pg.display.set_mode((width, height + 100), 0, 32)
-        pg.display.set_caption("Tic Tac Toe")
 
         # this method builds the infastructure of the display
         screen = pg.display.set_mode((width, height + 100), 0, 32)
@@ -93,5 +91,20 @@ class Board:
                 screen.blit(y_img, (posy, posx))
             
             pg.display.update()
+
+    def drawRowLine(self, row):
+        pg.draw.line(screen, (250,0,0), (0, (row + 1) * height / 3 - height / 6),\
+                            (width, (row + 1) * height / 3 - height / 6 ), 4)
+    def drawColumnLine(self, column):
+        pg.draw.line (screen, (250,0,0),((col + 1) * width / 3 - width / 6, 0),\
+                     ((col + 1) * width / 3 - width / 6, height), 4)
+    
+    # Draw the winning line diagonally from right to left
+    def drawDiagonalRTL(self):
+        pg.draw.line (screen, (250,70,70), (350, 50), (50, 350), 4)
+
+    # Draw the winning line diagonally from left to right
+    def drawDiagonalLTR(self):
+        pg.draw.line (screen, (250,70,70), (50, 50), (350, 350), 4)
 
         
