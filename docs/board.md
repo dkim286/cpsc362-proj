@@ -41,7 +41,7 @@ from ttt.board.py import *         # Board
 Board board
 
 board.drawToken('X')
-board.drawToken('Y')
+board.drawToken('O')
 board.drawRowLine(1)
 board.drawColumnLine(1)
 board.drawDiagonalRTL()
