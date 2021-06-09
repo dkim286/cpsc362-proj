@@ -9,6 +9,9 @@ import pygame as pg
 from ttt.game import Game
 from ttt.colors import *
 from ttt.board import Board
+#from ttt.board import * //Depending on what gets imported into board.py
+#from ttt.cpu import *
+
 
 def main():
     game = Game()
@@ -19,5 +22,6 @@ def main():
     # call drawToken
     # call isFull
     # call checkWin
+    # call functions from game.py below
 if __name__ == '__main__':
     main()
