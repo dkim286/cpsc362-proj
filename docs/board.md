@@ -54,6 +54,8 @@ board.renderBoard()
 
 ## `Board` Class
 
+This class is **purely for rendering the UI** based on the state of the `Game` instance contained within. It should contain no game logic besides calling on high-level `Game` functions to either read or modify the game state.
+
 The `Board` class should have the these functions visible publicly (rename these or add more as more stuff gets prototyped):
 
 - `run() -> None`
