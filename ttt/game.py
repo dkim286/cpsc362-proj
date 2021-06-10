@@ -2,6 +2,7 @@ import pygame as pg, sys
 from ttt.colors import WHITE
 from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, TTT as board
 from ttt.boards import *
+import time
 
 class Game:
     '''
@@ -15,21 +16,24 @@ class Game:
     winner = None
     draw = False
     
-    #Functions
+    # Helper util to monitor the game status.
     def draw_game_status(self):
         global draw
+
         if winner is None:
             status = XO.upper() + "'s Turn"
         else:
             status = winner.upper() + " wins!"
         if draw:
-            status = 'Tie Game'
+            status = 'Game drawn!'
         font = pg.font.Font(None, 30)
         text = font.render(status, 1, WHITE)
         renderBoard(self)
         
+    # Helper util to check the win state of the game.
     def win_checker(self):
         global winner,draw
+
         # check for winning rows
         for row in range (0,3):
             if ((board[row][0] == board[row][1] == board[row][2]) and(board[row][0] is not None)):
@@ -59,9 +63,12 @@ class Game:
         if(all([all(row) for row in board]) and winner is None ):
             draw = True
         draw_game_status(self)
-        
+
+    # Helper util to reset the game state.
     def reset_game(self):
         global winner, draw
+
+        time.sleep(3)
         XO = 'x'
         draw = False
         __init__(self)

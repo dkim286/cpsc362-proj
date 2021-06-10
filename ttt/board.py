@@ -63,7 +63,7 @@ class Board:
         else:
             row = None
 
-        if(row and col):
+        if(row and col and board[row-1][col-1] is None):
             # Find the x cordinate for the rows for the token to be placed
             if row == 1:
                 posx = 30
