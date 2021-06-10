@@ -13,9 +13,9 @@ The `Game` class should have functions similar to these visible publicly (rename
 - `Game.place_move(row: int, col: int) -> bool`
   - Attempt to place a move in [`row`, `col`], where each value ranges from 1 to 3 inclusive. 
   - Return `True` if valid. Return `False` otherwise. 
-- `Game.current_player(): -> str`
+- `Game.current_player() -> str`
   - Return `'x'` if it's X's turn. Return `'o'` if it's O's turn. 
-- `Game.check_win_condition(): -> str`
+- `Game.check_win_condition() -> str`
   - Determine the win condition. 
   - Return `'x'` or `'o'` if X or O won, respectively. Return `'draw'` if it's a draw.
 
