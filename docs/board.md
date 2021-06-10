@@ -32,6 +32,8 @@ This module represents the board and screen of Tic Tac Toe.
     - This method draws the winning line diagonally from right to left.
   - `drawDiagonalLTR`
     - This method draws the winning line diagonally from left to right.
+  - `renderBoard`
+    - This method takes the copied rendered message and posts it onto the board   
 
 ## Potential Use Examples 
 
@@ -46,3 +48,4 @@ board.drawRowLine(1)
 board.drawColumnLine(1)
 board.drawDiagonalRTL()
 board.drawDiagonalLTR()
+board.renderBoard()
