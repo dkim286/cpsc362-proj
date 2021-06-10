@@ -58,8 +58,8 @@ This class is **purely for rendering the UI** based on the state of the `Game` i
 
 The `Board` class should have the these functions visible publicly (rename these or add more as more stuff gets prototyped):
 
-- `run() -> None`
-  - Starts an infinite loop to keep the game going 
+- `Board.run() -> None`
+  - Starts an infinite loop to keep the game going.
 
 ## Interaction With `game.py`
 
