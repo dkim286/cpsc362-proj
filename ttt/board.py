@@ -104,3 +104,9 @@ class Board:
     # Draw the winning line diagonally from left to right
     def drawDiagonalLTR(self):
         pg.draw.line (self.screen, (250,70,70), (50, 50), (350, 350), 4)
+    # Copy Rendered Message onto the board
+    def renderBoard(self):
+        self.screen.fill ((0, 0, 0), (0, 400, 500, 100))
+        text_rect = text.get_rect(center=(width/2, 500-50))
+        self.screen.blit(text, text_rect)
+        pg.display.update()
