@@ -101,6 +101,29 @@ The game instance reference is passed by the main function:
      │main.py│                │game.py│          │board.py│
      └───────┘                └───────┘          └────────┘
 ```
+## Class Diagram 
+
+`Board` *contains* `Game`:
+
+```
+,---------------------------------------.
+|Game                                   |
+|---------------------------------------|
+|-_ttt: list                            |
+|+place_move(row: int, col: int) -> bool|
+|+current_player() -> str               |
+|+check_win_cond() -> str               |
+`---------------------------------------'
+                    |                    
+                    |                    
+       ,------------------------.        
+       |Board                   |        
+       |------------------------|        
+       |-_game: Game            |        
+       |-_screen: pygame.Surface|        
+       |+run() -> None          |        
+       `------------------------'   
+```
 
 ## Running the Game
 
