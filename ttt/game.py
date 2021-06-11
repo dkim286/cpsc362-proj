@@ -37,7 +37,7 @@ class Game:
         if (board[0][2] == board[1][1] == board[2][0]) and (board[0][2] is not None):
             return self._XO
 
-        if(all([all(row) for row in board]) and winner is None ):
+        if(all([all(row) for row in board])):
             return 'D'
 
         return 'N'
@@ -46,8 +46,6 @@ class Game:
     def reset_game(self):
         time.sleep(3)
         self._XO = 'x'
-        draw = False
-        winner = None
         self._board = [[None]*3,[None]*3,[None]*3]
     
     # Helper util to place an 'x' or 'o' onto the chosen space within the board

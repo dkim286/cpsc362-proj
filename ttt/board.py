@@ -51,7 +51,8 @@ class Board:
                     sys.exit()
                 elif event.type == MOUSEBUTTONDOWN:
                     self.drawToken()
-                    if(winner or draw):
+                    winner = self._game.win_checker()
+                    if(winner != 'N'):
                         self._game.reset_game()
                     
             pg.display.update()
