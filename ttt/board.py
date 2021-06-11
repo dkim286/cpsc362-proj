@@ -1,4 +1,5 @@
 from typing import TypedDict
+import time
 
 import pygame as pg, sys
 from pygame.locals import *
@@ -128,7 +129,7 @@ class Board:
         location = GRID_OFFSETS[row - 1][col - 1]
 
         # Place the token
-        previous_token = self.self._game._XO
+        previous_token = self._game.player
 
         good_move = self._game.place_move(row, col)
 
@@ -168,7 +169,7 @@ class Board:
             row (int): The row number (1 to 3 inclusive).
         '''
         x_end = BOARD_X + BOARD_WIDTH
-        y_offset = BOARD_Y + ((row - 1) * GRID_HEIGHT) + (GRID_HEIGHT / 2)
+        y_offset = BOARD_Y + ((row - 1) * GRID_HEIGHT) + (GRID_HEIGHT // 2)
 
         start = (BOARD_X, y_offset)
         end = (x_end, y_offset)
@@ -185,7 +186,7 @@ class Board:
         Parameters:
             column (int): The column number (1 to 3 inclusive).
         '''
-        x_offset = BOARD_X + ((column - 1) * GRID_WIDTH) + (GRID_WIDTH / 2)
+        x_offset = BOARD_X + ((column - 1) * GRID_WIDTH) + (GRID_WIDTH // 2)
         y_end = BOARD_Y + BOARD_HEIGHT
 
         start = (x_offset, BOARD_Y)
@@ -234,13 +235,14 @@ class Board:
         antialias = 1
         text = font.render(message, antialias, WHITE)
 
-        x_center = (STATUS_X + STATUS_WIDTH) / 2
-        y_center = (STATUS_Y + STATUS_HEIGHT) / 2
+        x_center = (STATUS_X + STATUS_WIDTH) // 2
+        y_center = STATUS_Y + STATUS_HEIGHT // 2
         center = (x_center, y_center)
         text_rect = text.get_rect(center=center)
         self._screen.blit(text, text_rect)
 
         pg.display.update()
+        time.sleep(3)
 
 
     def _render_status_area(self) -> None:
@@ -263,5 +265,7 @@ class Board:
         # drawing horizontal lines
         pg.draw.line(self._screen, RED, T21, (T23[0] + GRID_WIDTH, T23[1]), thickness)
         pg.draw.line(self._screen, RED, T31, (T33[0] + GRID_WIDTH, T33[1]), thickness)
+
+        self._render_status_area()
 
         pg.display.update()
