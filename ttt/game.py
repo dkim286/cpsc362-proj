@@ -44,13 +44,13 @@ class Game:
 
     # Helper util to reset the game state.
     def reset_game(self):
-
         time.sleep(3)
         self._XO = 'x'
         draw = False
         winner = None
         self._board = [[None]*3,[None]*3,[None]*3]
-
+    
+    # Helper util to place an 'x' or 'o' onto the chosen space within the board
     def place_move(self, row: int, col: int) -> bool:
         if self._board[row-1][col-1] == None:
             self._board[row-1][col-1] = self._XO
@@ -58,7 +58,8 @@ class Game:
             return True
         else:
             return False
-
+            
+    # Helper util to change the current active player
     def _change_player(self) -> None:
         if self._XO == 'x':
             self._XO = 'o'
