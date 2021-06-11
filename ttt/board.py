@@ -1,7 +1,7 @@
 import pygame as pg, sys
 from pygame.locals import *
-from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_LINE as line_color
-from ttt.colors import WHITE
+from ttt.dimensions import *
+from ttt.colors import *
 from ttt.game import Game
 
 IMG_DIR = 'img/'
@@ -21,35 +21,41 @@ class Board:
         self.CLOCK = pg.time.Clock()
         self._game = game
 
-        # this method builds the infastructure of the display
-        self._screen = pg.display.set_mode((width, height + 100), 0, 32)
+        # initialize the UI window
+        flags = 0
+        color_depth = 32
+        self._screen = pg.display.set_mode(UI_SIZE, flags, color_depth)
 
         pg.display.set_caption(GAME_NAME)
 
         # loading the images as python object
-        initiating_window = pg.image.load(OPENING_IMG_PATH)
+        splash_screen = pg.image.load(OPENING_IMG_PATH)
         self.x_img = pg.image.load(X_IMG_PATH)
         self.o_img = pg.image.load(O_IMG_PATH)
 
         # resizing images
-        initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
-        self.x_img = pg.transform.scale(self.x_img, (80, 80))
-        self.o_img = pg.transform.scale(self.o_img, (80, 80))
+        splash_screen = pg.transform.scale(splash_screen, UI_SIZE)
+        self.x_img = pg.transform.scale(self.x_img, GRID_SIZE)
+        self.o_img = pg.transform.scale(self.o_img, GRID_SIZE)
 
-        # displaying over the._screen
-        self._screen.blit(initiating_window, (0, 0))
+        # display splash screen
+        origin = (0, 0)
+        self._screen.blit(splash_screen, origin)
 
         # updating the display
         pg.display.update()
         self._screen.fill(WHITE)
 
         # drawing vertical lines
-        pg.draw.line(self._screen, line_color, (width / 3, 0), (width / 3, height), 7)
-        pg.draw.line(self._screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
+        thickness = 7
+        pg.draw.line(self._screen, RED, T12, (T32[0], T32[1] + GRID_HEIGHT), thickness)
+        pg.draw.line(self._screen, RED, T13, (T33[0], T33[1] + GRID_HEIGHT), thickness)
 
         # drawing horizontal lines
-        pg.draw.line(self._screen, line_color, (0, height / 3), (width, height / 3), 7)
-        pg.draw.line(self._screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7)
+        pg.draw.line(self._screen, RED, T21, (T23[0] + GRID_WIDTH, T23[1]), thickness)
+        pg.draw.line(self._screen, RED, T31, (T33[0] + GRID_WIDTH, T33[1]), thickness)
+
+        pg.display.update()
 
     def run(self):
         while(True):
