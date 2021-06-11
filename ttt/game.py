@@ -11,10 +11,13 @@ class Game:
     Handles everything with regards to the state of the game and modifying it,
     if applicable. 
     '''
-    # Global Variables
-    XO = 'x'
-    winner = None
-    draw = False
+    
+    # Game Constructor
+    def __init__(self):
+        XO = 'x'
+        winner = None
+        draw = False
+        board = [[None]*3,[None]*3,[None]*3]
     
     # Helper util to monitor the game status.
     def draw_game_status(self):
