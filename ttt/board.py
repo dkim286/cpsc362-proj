@@ -50,7 +50,7 @@ class Board:
                 elif event.type == MOUSEBUTTONDOWN:
                     self.drawToken()
                     if(winner or draw):
-                        break
+                        self._game.reset_game()
                     
             pg.display.update()
             CLOCK.tick(fps)
@@ -108,6 +108,8 @@ class Board:
                 self._game.XO = 'X'
             
             pg.display.update()
+
+            self._game.win_checker()
 
     def drawRowLine(self, row):
         pg.draw.line(self.screen, (250,0,0), (0, (row + 1) * height / 3 - height / 6),\
