@@ -4,6 +4,14 @@ from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_L
 from ttt.colors import WHITE
 from ttt.game import Game
 
+IMG_DIR = 'img/'
+
+X_IMG_PATH = IMG_DIR + 'x.png'
+O_IMG_PATH = IMG_DIR + 'o.png'
+OPENING_IMG_PATH = IMG_DIR + 'ttt_opening.jpg'
+
+GAME_NAME = 'Tic Tac Toe'
+
 class Board:
     # initializer with instance attributes
     def __init__(self, game: Game):
@@ -14,34 +22,34 @@ class Board:
         self._game = game
 
         # this method builds the infastructure of the display
-        self.screen = pg.display.set_mode((width, height + 100), 0, 32)
+        self._screen = pg.display.set_mode((width, height + 100), 0, 32)
 
-        pg.display.set_caption("Tic Tac Toe")
+        pg.display.set_caption(GAME_NAME)
 
         # loading the images as python object
-        initiating_window = pg.image.load('img/ttt_opening.jpg')
-        self.x_img = pg.image.load("img/x.png")
-        self.o_img = pg.image.load("img/o.png")
+        initiating_window = pg.image.load(OPENING_IMG_PATH)
+        self.x_img = pg.image.load(X_IMG_PATH)
+        self.o_img = pg.image.load(O_IMG_PATH)
 
         # resizing images
         initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
         self.x_img = pg.transform.scale(self.x_img, (80, 80))
         self.o_img = pg.transform.scale(self.o_img, (80, 80))
 
-        # displaying over the screen
-        self.screen.blit(initiating_window, (0, 0))
+        # displaying over the._screen
+        self._screen.blit(initiating_window, (0, 0))
 
         # updating the display
         pg.display.update()
-        self.screen.fill(WHITE)
+        self._screen.fill(WHITE)
 
         # drawing vertical lines
-        pg.draw.line(self.screen, line_color, (width / 3, 0), (width / 3, height), 7)
-        pg.draw.line(self.screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
+        pg.draw.line(self._screen, line_color, (width / 3, 0), (width / 3, height), 7)
+        pg.draw.line(self._screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
 
         # drawing horizontal lines
-        pg.draw.line(self.screen, line_color, (0, height / 3), (width, height / 3), 7)
-        pg.draw.line(self.screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7)
+        pg.draw.line(self._screen, line_color, (0, height / 3), (width, height / 3), 7)
+        pg.draw.line(self._screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7)
 
     def run(self):
         while(True):
@@ -106,33 +114,33 @@ class Board:
             good_move = self._game.place_move(row, col)
 
             if (good_move and previous_token == 'x'):
-                self.screen.blit(self.x_img, (posy, posx))
+                self._screen.blit(self.x_img, (posy, posx))
 
             elif (good_move and previous_token == 'o'):
-                self.screen.blit(self.o_img, (posy, posx))
+                self._screen.blit(self.o_img, (posy, posx))
             
             pg.display.update()
 
             self._game.win_checker()
 
     def drawRowLine(self, row):
-        pg.draw.line(self.screen, (250,0,0), (0, (row + 1) * height / 3 - height / 6),\
+        pg.draw.line(self._screen, (250,0,0), (0, (row + 1) * height / 3 - height / 6),\
                             (width, (row + 1) * height / 3 - height / 6 ), 4)
     def drawColumnLine(self, column):
-        pg.draw.line (self.screen, (250,0,0),((column + 1) * width / 3 - width / 6, 0),\
+        pg.draw.line (self._screen, (250,0,0),((column + 1) * width / 3 - width / 6, 0),\
                      ((column + 1) * width / 3 - width / 6, height), 4)
     
     # Draw the winning line diagonally from right to left
     def drawDiagonalRTL(self):
-        pg.draw.line (self.screen, (250,70,70), (350, 50), (50, 350), 4)
+        pg.draw.line (self._screen, (250,70,70), (350, 50), (50, 350), 4)
 
     # Draw the winning line diagonally from left to right
     def drawDiagonalLTR(self):
-        pg.draw.line (self.screen, (250,70,70), (50, 50), (350, 350), 4)
+        pg.draw.line (self._screen, (250,70,70), (50, 50), (350, 350), 4)
         
     # Copy Rendered Message onto the board
     def renderBoard(self):
-        self.screen.fill ((0, 0, 0), (0, 400, 500, 100))
+        self._screen.fill ((0, 0, 0), (0, 400, 500, 100))
         text_rect = text.get_rect(center=(width/2, 500-50))
-        self.screen.blit(text, text_rect)
+        self._screen.blit(text, text_rect)
         pg.display.update()
