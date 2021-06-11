@@ -48,7 +48,7 @@ BOARD_Y = 0
 # Playable area's xy as a tuple.
 BOARD_OFFSET = (BOARD_X, BOARD_Y)
 
-# Grid coordinates.
+# Grid offsets.
 # Each coordinate represents the top left corner of each grid square.
 T11 = (0,0)
 T12 = (BOARD_WIDTH / 3, 0)
@@ -61,6 +61,11 @@ T23 = (BOARD_WIDTH / 3 * 2, BOARD_WIDTH / 3)
 T31 = (0, BOARD_WIDTH / 3 * 2)
 T32 = (BOARD_WIDTH / 3, BOARD_WIDTH / 3 * 2) 
 T33 = (BOARD_WIDTH / 3 * 2, BOARD_WIDTH / 3 * 2)
+
+# Grid offsets as a single nested list.
+GRID_OFFSETS = [[T11, T12, T13],
+                [T21, T22, T23],
+                [T31, T32, T33]]
 
 
 

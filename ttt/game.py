@@ -8,8 +8,8 @@ import time
 DRAW = 'D'
 UNDECIDED = 'N'
 
-X = X
-O = O
+X = 'x'
+O = 'o'
 
 class Game:
     '''
