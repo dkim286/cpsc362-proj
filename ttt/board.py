@@ -1,12 +1,16 @@
 import pygame as pg
 from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_LINE as line_color, TTT as board
 from ttt.colors import WHITE
+from ttt.game import Game
 
 class Board:
     # initializer with instance attributes
-    def __init__(self):
+    def __init__(self, game: Game):
         # initializing the pygame window
         pg.init()
+
+        self._game = game
+        self.token = 'X'
 
         # this method builds the infastructure of the display
         self.screen = pg.display.set_mode((width, height + 100), 0, 32)
@@ -38,7 +42,21 @@ class Board:
         pg.draw.line(self.screen, line_color, (0, height / 3), (width, height / 3), 7)
         pg.draw.line(self.screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7)
 
-    def drawToken(self, token):
+    def run(self):
+        while(True):
+            for event in pg.event.get():
+                if event.type == QUIT:
+                    pg.quit()
+                    sys.exit()
+                elif event.type == MOUSEBUTTONDOWN:
+                    self.drawToken()
+                    if(winner or draw):
+                        break
+                    
+            pg.display.update()
+            CLOCK.tick(fps)
+
+    def drawToken(self):
 
         # get coordinates of mouse click
         x, y = pg.mouse.get_pos()
@@ -81,12 +99,14 @@ class Board:
                 posy = height / 3 * 2 + 30
 
             # Place the token
-            board[row - 1][col - 1] = token
+            board[row - 1][col - 1] = self.token
 
-            if token == 'X' or token == 'x':
+            if self.token == 'X' or self.token == 'x':
                 self.screen.blit(self.x_img, (posy, posx))
+                self.token = 'O'
             else:
                 self.screen.blit(self.o_img, (posy, posx))
+                self.token = 'X'
             
             pg.display.update()
 
