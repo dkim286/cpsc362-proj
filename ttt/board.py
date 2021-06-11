@@ -81,7 +81,7 @@ class Board:
         else:
             row = None
 
-        if(row and col and board[row-1][col-1] is None):
+        if(row and col and self._game.board[row-1][col-1] is None):
             # Find the x cordinate for the rows for the token to be placed
             if row == 1:
                 posx = 30
@@ -99,14 +99,15 @@ class Board:
                 posy = height / 3 * 2 + 30
 
             # Place the token
-            board[row - 1][col - 1] = self._game.XO
+            previous_token = self.self._game._XO
 
-            if self._game.XO == 'X' or self._game.XO == 'x':
+            good_move = self._game.place_move(row, col)
+
+            if (good_move and previous_token == 'x'):
                 self.screen.blit(self.x_img, (posy, posx))
-                self._game.XO = 'O'
-            else:
+
+            elif (good_move and previous_token == 'o'):
                 self.screen.blit(self.o_img, (posy, posx))
-                self._game.XO = 'X'
             
             pg.display.update()
 
@@ -126,6 +127,7 @@ class Board:
     # Draw the winning line diagonally from left to right
     def drawDiagonalLTR(self):
         pg.draw.line (self.screen, (250,70,70), (50, 50), (350, 350), 4)
+        
     # Copy Rendered Message onto the board
     def renderBoard(self):
         self.screen.fill ((0, 0, 0), (0, 400, 500, 100))
