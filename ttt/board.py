@@ -10,7 +10,6 @@ class Board:
         pg.init()
 
         self._game = game
-        self.token = 'X'
 
         # this method builds the infastructure of the display
         self.screen = pg.display.set_mode((width, height + 100), 0, 32)
@@ -99,14 +98,14 @@ class Board:
                 posy = height / 3 * 2 + 30
 
             # Place the token
-            board[row - 1][col - 1] = self.token
+            board[row - 1][col - 1] = self._game.XO
 
-            if self.token == 'X' or self.token == 'x':
+            if self._game.XO == 'X' or self._game.XO == 'x':
                 self.screen.blit(self.x_img, (posy, posx))
-                self.token = 'O'
+                self._game.XO = 'O'
             else:
                 self.screen.blit(self.o_img, (posy, posx))
-                self.token = 'X'
+                self._game.XO = 'X'
             
             pg.display.update()
 
