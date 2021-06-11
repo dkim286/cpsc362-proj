@@ -31,18 +31,18 @@ class Game:
         # check for winning rows
         for row in range (0,3):
             if ((board[row][0] == board[row][1] == board[row][2]) and(board[row][0] is not None)):
-                return self._player
+                return self._winner()
                 
         # check for winning columns
         for col in range (0, 3):
             if (board[0][col] == board[1][col] == board[2][col]) and (board[0][col] is not None):
-                return self._player
-                
+                return self._winner()
+
         # check for diagonal winners
         if (board[0][0] == board[1][1] == board[2][2]) and (board[0][0] is not None):
-            return self._player
+            return self._winner()
         if (board[0][2] == board[1][1] == board[2][0]) and (board[0][2] is not None):
-            return self._player
+            return self._winner()
 
         if(all([all(row) for row in board])):
             return DRAW
@@ -70,3 +70,8 @@ class Game:
             self._player = O
         else:
             self._player = X
+
+    def _winner(self) -> str:
+        if self._player == X:
+            return O
+        return X
