@@ -1,7 +1,7 @@
 import pygame as pg, sys
 from ttt.colors import WHITE
 from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, TTT as board
-from ttt.boards import *
+from ttt.board import *
 import time
 
 class Game:
@@ -20,7 +20,7 @@ class Game:
         
     # Helper util to check the win state of the game.
     def win_checker(self) -> str:
-        global winner,draw
+        global winner, draw
 
         # check for winning rows
         for row in range (0,3):

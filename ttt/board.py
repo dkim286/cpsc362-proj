@@ -9,9 +9,8 @@ class Board:
     def __init__(self, game: Game):
         # initializing the pygame window
         pg.init()
-        fps = 30
-        CLOCK = pg.time.Clock()
-
+        self.fps = 30
+        self.CLOCK = pg.time.Clock()
         self._game = game
 
         # this method builds the infastructure of the display
@@ -56,7 +55,7 @@ class Board:
                         self._game.reset_game()
                     
             pg.display.update()
-            CLOCK.tick(fps)
+            self.CLOCK.tick(self.fps)
 
     def drawToken(self):
 
