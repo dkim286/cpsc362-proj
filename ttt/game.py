@@ -4,6 +4,10 @@ from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, TTT as 
 from ttt.board import *
 import time
 
+
+DRAW = 'D'
+UNDECIDED = 'N'
+
 class Game:
     '''
     A class that represents the game's state.
@@ -38,9 +42,9 @@ class Game:
             return self._XO
 
         if(all([all(row) for row in board])):
-            return 'D'
+            return DRAW
 
-        return 'N'
+        return UNDECIDED
 
     # Helper util to reset the game state.
     def reset_game(self):
