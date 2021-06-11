@@ -191,8 +191,31 @@ from ttt.cpu import Cpu
 # ...
 
 class Board: 
-    def __init__(self, cpu: Cpu, '...'):
-        self._cpu = cpu
+    def __init__(self, game: Game, '...'):
+        self._cpu = Cpu(game)
         # snip
         # ...
+```
+
+## Sequence Diagram 
+
+```
+     ┌─────┐                                 ┌───┐          ┌────┐
+     │Board│                                 │Cpu│          │Game│
+     └──┬──┘                                 └─┬─┘          └─┬──┘
+        ────┐                                  │              │   
+            │ is the self._cpu object not None?│              │   
+        <───┘                                  │              │   
+        │                                      │              │   
+        │     self._cpu.find_best_move()       │              │   
+        │─────────────────────────────────────>│              │   
+        │                                      │              │   
+        │      best move is: (row, col)        │              │   
+        │<─────────────────────────────────────│              │   
+        │                                      │              │   
+        │          self._game.place_move(row, col)            │   
+        │────────────────────────────────────────────────────>│   
+     ┌──┴──┐                                 ┌─┴─┐          ┌─┴──┐
+     │Board│                                 │Cpu│          │Game│
+     └─────┘                                 └───┘          └────┘
 ```
