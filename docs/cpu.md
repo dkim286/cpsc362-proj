@@ -9,7 +9,17 @@ I'm not going to hold your hand through this. There are plenty of resources onli
 - [http://article.sapub.org/10.5923.j.jgt.20200901.01.html](http://article.sapub.org/10.5923.j.jgt.20200901.01.html)
 - [https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/)
 
-## Potential Code for Naiive Search
+This document contains:
+
+- [Naiive Search code](#potential-code-for-naiive-search)
+  - [Implementing it as a module](#implementing-it-as-a-module)
+    - [Option 1](#option-1-instance-variable)
+      - [Sequence diagram](#option-1-sequence-diagram)
+    - [Option 2](#option-2-construct-it-as-needed-maybe-preferable)
+      - [Sequence diagram](#option-2-sequence-diagram)
+- [Matrix-based](#matrix-based)
+
+# Potential Code for Naiive Search
 
 The best possible move for the computer player could be determined by naiively (is it really naiive?) running a simulated game, running it through to completion, and then use the move that has the best winning potential. 
 
@@ -140,11 +150,11 @@ while True:
 
 ```
 
-# Implementing it as a module 
+## Implementing it as a module 
 
 Most likely, this will have to be handled as an object.
 
-## Option 1: Instance Variable
+### Option 1: Instance Variable
 
 We can make `Cpu` an instance variable of the `Board` object. I can't think of a good reason why it'd be implemented like this, unless the `Cpu` object has some persistent variables that needs to be kept alive while the game is progressing. 
 
@@ -203,7 +213,7 @@ class Board:
         # ...
 ```
 
-### Sequence Diagram 
+#### Option 1 Sequence Diagram 
 
 ```
      ┌─────┐                                 ┌───┐          ┌────┐
@@ -226,7 +236,7 @@ class Board:
      └─────┘                                 └───┘          └────┘
 ```
 
-## Option 2: Construct it as needed (maybe preferable)
+### Option 2: Construct it as needed (maybe preferable)
 
 This is likely the better choice. The downside is that the `Cpu` object lives only temporarily.
 
@@ -267,7 +277,7 @@ class Board:
 ```
 
 
-### Sequence Diagram 
+#### Option 2 Sequence Diagram 
 
 ```
      ┌──────┐               ┌───────────┐                        ┌──────┐          ┌───────┐
@@ -306,3 +316,9 @@ class Board:
      │PyGame│               │Board.run()│                        │cpu.py│          │game.py│
      └──────┘               └───────────┘                        └──────┘          └───────┘
 ```
+
+
+# Matrix-based 
+
+The first article (- [http://article.sapub.org/10.5923.j.jgt.20200901.01.html](http://article.sapub.org/10.5923.j.jgt.20200901.01.html)
+) talks about using a stochastic matrix. If you can think of a way to make that work, *please* document it here. 
