@@ -20,7 +20,6 @@ class Game:
         
     # Helper util to check the win state of the game.
     def win_checker(self) -> str:
-        global winner, draw
 
         # check for winning rows
         for row in range (0,3):
@@ -45,14 +44,12 @@ class Game:
 
     # Helper util to reset the game state.
     def reset_game(self):
-        global winner, draw
 
         time.sleep(3)
-        XO = 'x'
+        self._XO = 'x'
         draw = False
-        __init__(self)
         winner = None
-        board = [[None]*3,[None]*3,[None]*3]
+        self._board = [[None]*3,[None]*3,[None]*3]
 
     def place_move(self, row: int, col: int) -> bool:
         if self._board[row-1][col-1] == None:
@@ -62,7 +59,7 @@ class Game:
         else:
             return False
 
-    def _change_player() -> None:
+    def _change_player(self) -> None:
         if self._XO == 'x':
             self._XO = 'o'
         else:
