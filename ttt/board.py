@@ -1,4 +1,5 @@
 import pygame as pg, sys
+from pygame.locals import *
 from ttt.dimensions import BOARD_WIDTH as width, BOARD_HEIGHT as height, BOARD_LINE as line_color
 from ttt.colors import WHITE
 from ttt.game import Game
