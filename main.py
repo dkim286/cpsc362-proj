@@ -14,13 +14,8 @@ from ttt.board import *
 
 def main():
     game = Game()
-    print('I made a Game object.')
-    print ('Red is: {}'.format(color_to_str(RED)))
+    board = Board(game)
+    board.run()
 
-    # call checkBoardForSpace
-    # call drawToken
-    # call isFull
-    # call checkWin
-    # call functions from game.py below
 if __name__ == '__main__':
     main()

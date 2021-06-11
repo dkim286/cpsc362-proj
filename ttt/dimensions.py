@@ -31,8 +31,8 @@ BOARD_LINE = (10, 10, 10)
 BOARD_SIZE = (BOARD_WIDTH, BOARD_HEIGHT)
 
 # Dimension of each grid square.
-GRID_WIDTH = BOARD_WIDTH / 3
-GRID_HEIGHT = BOARD_HEIGHT / 3
+GRID_WIDTH = BOARD_WIDTH // 3
+GRID_HEIGHT = BOARD_HEIGHT // 3
 
 # Each grid square's dimension as a size tuple.
 GRID_SIZE = (GRID_WIDTH, GRID_HEIGHT)
@@ -51,16 +51,16 @@ BOARD_OFFSET = (BOARD_X, BOARD_Y)
 # Grid offsets.
 # Each coordinate represents the top left corner of each grid square.
 T11 = (0,0)
-T12 = (BOARD_WIDTH / 3, 0)
-T13 = (BOARD_WIDTH / 3 * 2, 0)
+T12 = (BOARD_WIDTH // 3, 0)
+T13 = (BOARD_WIDTH // 3 * 2, 0)
 
 T21 = (0, BOARD_WIDTH / 3)
-T22 = (BOARD_WIDTH / 3, BOARD_WIDTH / 3)
-T23 = (BOARD_WIDTH / 3 * 2, BOARD_WIDTH / 3)
+T22 = (BOARD_WIDTH // 3, BOARD_WIDTH // 3)
+T23 = (BOARD_WIDTH // 3 * 2, BOARD_WIDTH // 3)
 
-T31 = (0, BOARD_WIDTH / 3 * 2)
-T32 = (BOARD_WIDTH / 3, BOARD_WIDTH / 3 * 2) 
-T33 = (BOARD_WIDTH / 3 * 2, BOARD_WIDTH / 3 * 2)
+T31 = (0, BOARD_WIDTH // 3 * 2)
+T32 = (BOARD_WIDTH // 3, BOARD_WIDTH // 3 * 2)
+T33 = (BOARD_WIDTH // 3 * 2, BOARD_WIDTH // 3 * 2)
 
 # Grid offsets as a single nested list.
 GRID_OFFSETS = [[T11, T12, T13],
