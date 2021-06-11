@@ -9,6 +9,8 @@ class Board:
     def __init__(self, game: Game):
         # initializing the pygame window
         pg.init()
+        fps = 30
+        CLOCK = pg.time.Clock()
 
         self._game = game
 
