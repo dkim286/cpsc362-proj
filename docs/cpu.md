@@ -144,10 +144,15 @@ while True:
 
 Most likely, this will have to be handled as an object.
 
+## Option 1: Instance Variable
+
+We can make `Cpu` an instance variable of the `Board` object. I can't think of a good reason why it'd be implemented like this, unless the `Cpu` object has some persistent variables that needs to be kept alive while the game is progressing. 
+
 **cpu.py**
 
 ```python
 from typing import TypedDict 
+import copy
 from ttt.game import Game
 
 class _score(TypedDict):
@@ -160,7 +165,8 @@ _move = tuple[int, int]
 
 class Cpu:
     def __init__(self, game: Game):
-        self._game = game 
+        # make a copy of the ongoing game.
+        self._game = copy.deepcopy(game)
     
     
     def find_best_move(self) -> _move: 
@@ -197,7 +203,7 @@ class Board:
         # ...
 ```
 
-## Sequence Diagram 
+### Sequence Diagram 
 
 ```
      ┌─────┐                                 ┌───┐          ┌────┐
@@ -218,4 +224,85 @@ class Board:
      ┌──┴──┐                                 ┌─┴─┐          ┌─┴──┐
      │Board│                                 │Cpu│          │Game│
      └─────┘                                 └───┘          └────┘
+```
+
+## Option 2: Construct it as needed (maybe preferable)
+
+This is likely the better choice. The downside is that the `Cpu` object lives only temporarily.
+
+Assuming that the `Cpu` object is implemented similarly to the previous example, the `Board.run()`function could be modified slightly to allow for computer player's move inbetween human player actions.
+
+**board.py**:
+
+```python
+from ttt.cpu import Cpu
+
+class Board: 
+    # snip
+    # ...
+    def run(self) -> None:
+        '''
+        Runs the game in an infinite loop, accepting user input all the while.
+        '''
+        while(True):
+            for event in pg.event.get():
+                if event.type == QUIT:
+                    pg.quit()
+                    sys.exit()
+                elif event.type == MOUSEBUTTONDOWN:
+                    self.drawToken()
+                    winner = self._game.win_checker()
+                    if(winner != 'N'):
+                        self._game.reset_game()
+                    
+                # computer player's turn.
+                # takes place immediately after a user input event is handled
+                cpu = Cpu(self._game)
+                cpu_move = cpu.find_best_move()
+                self._game.place_move(cpu_move[0], cpu_move[1])
+                
+            pg.display.update()
+            self.CLOCK.tick(self._fps)
+
+```
+
+
+### Sequence Diagram 
+
+```
+     ┌──────┐               ┌───────────┐                        ┌──────┐          ┌───────┐
+     │PyGame│               │Board.run()│                        │cpu.py│          │game.py│
+     └──┬───┘               └─────┬─────┘                        └──┬───┘          └───┬───┘
+        │      pg.event.get()     │                                 │                  │    
+        │ <────────────────────────                                 │                  │    
+        │                         │                                 │                  │    
+        │ (a list of input events)│                                 │                  │    
+        │ ────────────────────────>                                 │                  │    
+        │                         │                                 │                  │    
+        │                         │      human player: Game.place_move(row, col)       │    
+        │                         │ ──────────────────────────────────────────────────>│    
+        │                         │                                 │                  │    
+        │                         │         ret True if valid, False otherwise         │    
+        │                         │ <──────────────────────────────────────────────────│    
+        │                         │                                 │                  │    
+        │                         │           cpu = Cpu()           │                  │    
+        │                         │ ────────────────────────────────>                  │    
+        │                         │                                 │                  │    
+        │                         │          (Cpu instance)         │                  │    
+        │                         │ <────────────────────────────────                  │    
+        │                         │                                 │                  │    
+        │                         │       cpu.find_best_move()      │                  │    
+        │                         │ ────────────────────────────────>                  │    
+        │                         │                                 │                  │    
+        │                         │ (best move in (row, col) format)│                  │    
+        │                         │ <────────────────────────────────                  │    
+        │                         │                                 │                  │    
+        │                         │     computer player: Game.place_move(row, col)     │    
+        │                         │ ──────────────────────────────────────────────────>│    
+        │                         │                                 │                  │    
+        │                         │         ret True if valid, False otherwise         │    
+        │                         │ <──────────────────────────────────────────────────│    
+     ┌──┴───┐               ┌─────┴─────┐                        ┌──┴───┐          ┌───┴───┐
+     │PyGame│               │Board.run()│                        │cpu.py│          │game.py│
+     └──────┘               └───────────┘                        └──────┘          └───────┘
 ```
