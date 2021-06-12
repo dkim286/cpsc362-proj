@@ -92,7 +92,18 @@ WR31 = (BOARD_WIDTH, BOARD_HEIGHT // (3 * 2))
 WR32 = (BOARD_WIDTH, BOARD_HEIGHT // 3 + (BOARD_HEIGHT // (3 * 2)))
 WR33 = (BOARD_WIDTH, BOARD_HEIGHT // 3 * 2 + (BOARD_HEIGHT // (3 * 2)))
 
+# Diagonal lines 
 
+# Start
+#RTL
+WD11 = (0, 0)
+#LTR
+WD13 = (BOARD_WIDTH, 0)
+# End
+#RTL
+WD31 = (BOARD_WIDTH, BOARD_HEIGHT)
+#LTR
+WD33 = (0, BOARD_HEIGHT)
 
 
 ################################################################################

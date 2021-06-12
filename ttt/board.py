@@ -276,4 +276,11 @@ class Board:
                 pg.draw.line(self._screen, BLUE, WR12, WR32, thickness)  
             elif value == "2":
                 pg.draw.line(self._screen, BLUE, WR13, WR33, thickness) 
+                
+        elif direction == "LTR":
+            if value == "1":
+                pg.draw.line(self._screen, BLUE, WD11, WD31, thickness)
+        elif direction == "RTL":
+            if value == "1":
+                pg.draw.line(self._screen, BLUE, WD13, WD33, thickness)
 
