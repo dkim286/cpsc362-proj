@@ -48,7 +48,11 @@ class Game:
 
     # Helper util to reset the game state.
     def reset_game(self):
-        self._player = X
+        # self._player = X
+        if self._winner() == X:
+            self._player = O
+        elif self._winner() == O:
+            self._player = X
         self._board = [[None]*3,[None]*3,[None]*3]
 
     @property

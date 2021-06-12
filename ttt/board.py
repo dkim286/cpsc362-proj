@@ -1,4 +1,3 @@
-from typing import TypedDict
 import time
 
 import pygame as pg, sys
@@ -108,39 +107,22 @@ class Board:
         else:
             row = None
 
-        '''
-        if row and col and self._game.board[row-1][col-1] is None:
-            # Find the x cordinate for the rows for the token to be placed
-            if row == 1:
-                posx = 30
-            elif row == 2:
-                posx = BOARD_WIDTH / 3 + 30
-            else:
-                posx = BOARD_WIDTH / 3 * 2 + 30
+        # If the user clicked a an area within bounds, place the token
+        if(row and col):
+            location = GRID_OFFSETS[row - 1][col - 1]
 
-            # Find the y cordinate for the rows for the token to be placed
-            if col == 1:
-                posy = 30
-            elif col == 2:
-                posy = BOARD_HEIGHT / 3 + 30
-            else:
-                posy = BOARD_HEIGHT / 3 * 2 + 30
-        '''
+            # Place the token
+            previous_token = self._game.player
 
-        location = GRID_OFFSETS[row - 1][col - 1]
+            good_move = self._game.place_move(row, col)
 
-        # Place the token
-        previous_token = self._game.player
+            if (good_move and previous_token == X):
+                self._screen.blit(self._x_img, location)
 
-        good_move = self._game.place_move(row, col)
+            elif (good_move and previous_token == O):
+                self._screen.blit(self._o_img, location)
 
-        if (good_move and previous_token == X):
-            self._screen.blit(self._x_img, location)
-
-        elif (good_move and previous_token == O):
-            self._screen.blit(self._o_img, location)
-
-        pg.display.update()
+            pg.display.update()
 
         # Check if anyone has won. If so, consider the game to be over.
         winner, direction, value = self._game.win_checker()
