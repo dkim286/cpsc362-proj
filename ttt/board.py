@@ -1,4 +1,3 @@
-from typing import TypedDict
 import time
 
 import pygame as pg, sys
