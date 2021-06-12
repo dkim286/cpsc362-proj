@@ -1,6 +1,6 @@
 import pygame as pg, sys
 from ttt.colors import WHITE
-
+from ttt.dimensions import *
 
 DRAW = 'D'
 UNDECIDED = 'N'
@@ -28,23 +28,23 @@ class Game:
         # check for winning rows
         for row in range (0,3):
             if ((self._board[row][0] == self._board[row][1] == self._board[row][2]) and(self._board[row][0] is not None)):
-                return self._winner()
+                return self._winner(), "row", str(row)
                 
         # check for winning columns
         for col in range (0, 3):
             if (self._board[0][col] == self._board[1][col] == self._board[2][col]) and (self._board[0][col] is not None):
-                return self._winner()
+                return self._winner(), "col", str(col)
 
         # check for diagonal winners
         if (self._board[0][0] == self._board[1][1] == self._board[2][2]) and (self._board[0][0] is not None):
-            return self._winner()
+            return self._winner(), "LTR", "1"
         if (self._board[0][2] == self._board[1][1] == self._board[2][0]) and (self._board[0][2] is not None):
-            return self._winner()
+            return self._winner(), "RTL", "1"
 
         if(all([all(row) for row in self._board])):
-            return DRAW
+            return DRAW, "1", "1"
 
-        return UNDECIDED
+        return UNDECIDED, "1", "1"
 
     # Helper util to reset the game state.
     def reset_game(self):

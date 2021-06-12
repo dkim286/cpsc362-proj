@@ -72,7 +72,7 @@ class Board:
                     sys.exit()
                 elif event.type == MOUSEBUTTONDOWN:
                     self.drawToken()
-                    winner = self._game.win_checker()
+                    winner, direction, value = self._game.win_checker()
                     if(winner != 'N'):
                         self._game.reset_game()
                     
@@ -86,6 +86,7 @@ class Board:
         '''
         # get coordinates of mouse click
         x, y = pg.mouse.get_pos()
+        thickness = 4
 
         # get column of mouse click
         if x < BOARD_WIDTH / 3:
@@ -142,7 +143,12 @@ class Board:
         pg.display.update()
 
         # Check if anyone has won. If so, consider the game to be over.
-        winner = self._game.win_checker()
+        winner, direction, value = self._game.win_checker()
+        # print("draw token:    winner: " + winner, " direction: " + direction, " value: " + value)
+
+        if winner != 'N':
+            self._draw_winning_line(direction, value)
+
         game_over = False
 
         if winner == DRAW:
@@ -269,3 +275,23 @@ class Board:
         self._render_status_area()
 
         pg.display.update()
+
+    def _draw_winning_line(self, direction, value) -> None:
+        # drawing vertical lines
+        thickness = 4
+        if direction == "col":
+            if value == "0":
+                pg.draw.line(self._screen, BLUE, WC11, WC31, thickness)
+            elif value == "1":
+              pg.draw.line(self._screen, BLUE, WC12, WC32, thickness)  
+            elif value == "2":
+              pg.draw.line(self._screen, BLUE, WC13, WC33, thickness)  
+
+        elif direction == "row":
+            if value == "0":
+                pg.draw.line(self._screen, BLUE, WR11, WR31, thickness)
+            elif value == "1":
+                pg.draw.line(self._screen, BLUE, WR12, WR32, thickness)  
+            elif value == "2":
+                pg.draw.line(self._screen, BLUE, WR13, WR33, thickness) 
+

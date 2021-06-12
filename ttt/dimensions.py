@@ -68,6 +68,32 @@ GRID_OFFSETS = [[T11, T12, T13],
                 [T31, T32, T33]]
 
 
+# For Winning Lines
+
+# Vertical lines - Winning Column
+
+# Start
+WC11 = (0 + BOARD_WIDTH // (3 * 2), 0)
+WC12 = ((BOARD_WIDTH // 3) + BOARD_WIDTH // (3 * 2), 0)
+WC13 = (BOARD_WIDTH // 3 * 2 +  BOARD_WIDTH // (3 * 2) , 0)
+# End
+WC31 = (0 + (BOARD_WIDTH // (3 * 2)), BOARD_HEIGHT)
+WC32 = (BOARD_WIDTH // 3 + (BOARD_WIDTH // (3 * 2)), BOARD_HEIGHT)
+WC33 = (BOARD_WIDTH // 3 * 2 + (BOARD_WIDTH // (3 * 2)), BOARD_HEIGHT)
+
+# Horizontal lines - Winning Row
+
+# Start
+WR11 = (0, BOARD_HEIGHT // (3 * 2))
+WR12 = (0, BOARD_HEIGHT // 3 + (BOARD_HEIGHT // (3 * 2)))
+WR13 = (0, BOARD_HEIGHT // 3 * 2 + (BOARD_HEIGHT // (3 * 2)))
+# End
+WR31 = (BOARD_WIDTH, BOARD_HEIGHT // (3 * 2))
+WR32 = (BOARD_WIDTH, BOARD_HEIGHT // 3 + (BOARD_HEIGHT // (3 * 2)))
+WR33 = (BOARD_WIDTH, BOARD_HEIGHT // 3 * 2 + (BOARD_HEIGHT // (3 * 2)))
+
+
+
 
 ################################################################################
 # UI
