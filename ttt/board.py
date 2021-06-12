@@ -56,6 +56,7 @@ class Board:
 
         # updating the display
         pg.display.update()
+        time.sleep(2)
 
         self._draw_ui()
 
