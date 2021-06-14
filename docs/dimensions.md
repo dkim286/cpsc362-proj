@@ -56,6 +56,14 @@ The board area is defined by the following variables:
   - `T11`, `T12`, ... `T33`
     -  X and Y coordinates of each grid square. For example, `T23` represents the upper left corner of row 2 column 3. 
 
+### Winning lines
+  - `WC` - Winning column
+  - `WR` - Winning row
+  - `WD` - Winning diagonal
+  - For example, `WC11` is the mid point between `T11` and `T12`. Similarly, `WC31` is the midpoint at the bottom which is between `T31` and `T32`.
+    - The other `WC` and `WR` follow the same pattern.
+    - For `WD`, the coordinates represent the corners.
+
 ## Potential Use Examples 
 
 ```python
