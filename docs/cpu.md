@@ -4,7 +4,7 @@ This module is responsible for handling the computer player logic.
 
 # Algorithm 
 
-I'm not going to hold your hand through this. There are plenty of resources online on how to create an algorithm that plays tic tac toe. 
+Brandon has done this before. We should defer to him when making implementation decisions. 
 
 - [http://article.sapub.org/10.5923.j.jgt.20200901.01.html](http://article.sapub.org/10.5923.j.jgt.20200901.01.html)
 - [https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/)
@@ -15,7 +15,7 @@ This document contains:
   - [Implementing it as a module](#implementing-it-as-a-module)
     - [Option 1](#option-1-instance-variable)
       - [Sequence diagram](#option-1-sequence-diagram)
-    - [Option 2](#option-2-construct-it-as-needed-maybe-preferable)
+    - [Option 2](#option-2-construct-it-as-needed) <<<<< We're going with this option 
       - [Sequence diagram](#option-2-sequence-diagram)
 - [Matrix-based](#matrix-based)
 
@@ -154,7 +154,9 @@ while True:
 
 Most likely, this will have to be handled as an object.
 
-### Option 1: Instance Variable
+### Option 1: Instance Variable (WE'RE NOT DOING THIS)
+
+**NOTE**: We're going with option 2. Click [here](#option-2-construct-it-as-needed) to jump to option 2. 
 
 We can make `Cpu` an instance variable of the `Board` object. I can't think of a good reason why it'd be implemented like this, unless the `Cpu` object has some persistent variables that needs to be kept alive while the game is progressing. 
 
@@ -236,7 +238,7 @@ class Board:
      └─────┘                                 └───┘          └────┘
 ```
 
-### Option 2: Construct it as needed (maybe preferable)
+### Option 2: Construct it as needed
 
 This is likely the better choice. The downside is that the `Cpu` object lives only temporarily.
 
