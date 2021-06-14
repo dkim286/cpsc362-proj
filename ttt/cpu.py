@@ -1,10 +1,11 @@
 import pygame as pg, sys
 import copy
 
+from random import random
 from ttt.game import Game
 
 # custom type that shows the x and y coordinates of the cell (x,y).
-_move = tuple[int, int]
+_move = list[int, int]
 
 class Cpu:
     '''
@@ -29,9 +30,22 @@ class Cpu:
         recursive _min_max() call chain. 
 
         Returns:
-            move (_move): A (row, col) tuple representing the best move. 
+            move (_move): A (row, col) list representing the best move. 
         '''
-        pass
+        
+        # Calculate the random row and col
+        row = random.randit(1,3)
+        col = random.randit(1,3)
+
+        # If the CPU can not place a token, restart the function
+        if(not self._game.place_move(row, col)):
+            self.get_random_move()
+            
+        # If a move can be placed, return those values
+        else:
+            _move.append(row)
+            _move.append(col)
+            return _move
 
 
     def _min_max(self, min_max: bool) -> int:
