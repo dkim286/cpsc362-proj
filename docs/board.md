@@ -33,6 +33,8 @@ This module represents the board and screen of Tic Tac Toe.
     - This method draws the winning line diagonally from left to right.
   - `renderBoard`
     - This method takes the copied rendered message and posts it onto the board   
+  - `_draw_winning_line`
+    - This method draws the winning lines given the context of "row", "column", "LTR" diagonal , or "RTL" diagonal with the corresponding row  number or column number
 
 ## Potential Use Examples 
 
