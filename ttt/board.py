@@ -73,6 +73,7 @@ class Board:
                     sys.exit()
                 elif event.type == MOUSEBUTTONDOWN:
                     self.drawToken()
+                    # checks winner
                     winner, direction, value = self._game.win_checker()
                     if(winner != 'N'):
                         self._game.reset_game()
@@ -82,7 +83,11 @@ class Board:
                 cpu = Cpu(self._game)
                 cpu_move = cpu.find_best_move()
                 self._game.place_move(cpu_move[0], cpu_move[1])
-            
+                # checks winner
+                winner, direction, value = self._game.win_checker()
+                if(winner != 'N'):
+                    self._game.reset_game()
+
             pg.display.update()
             self.CLOCK.tick(self._fps)
 
