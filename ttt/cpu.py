@@ -1,7 +1,7 @@
 import pygame as pg, sys
 import copy
 
-from random import random
+import random
 from ttt.game import Game
 
 # custom type that shows the x and y coordinates of the cell (x,y).
@@ -34,8 +34,8 @@ class Cpu:
         '''
         
         # Calculate the random row and col
-        row = random.randit(1,3)
-        col = random.randit(1,3)
+        row = random.randint(1,3)
+        col = random.randint(1,3)
 
         # If the CPU can not place a token, restart the function
         if(not self._game.place_move(row, col)):

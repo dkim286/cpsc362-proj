@@ -6,6 +6,7 @@ from pygame.locals import *
 from ttt.dimensions import *
 from ttt.colors import *
 from ttt.game import Game, X, O, DRAW, UNDECIDED
+from ttt.cpu import Cpu
 
 IMG_DIR = 'img/'
 
@@ -75,7 +76,13 @@ class Board:
                     winner, direction, value = self._game.win_checker()
                     if(winner != 'N'):
                         self._game.reset_game()
-                    
+                        
+                # computer player's turn.
+                # takes place immediately after a user input event is handled
+                cpu = Cpu(self._game)
+                cpu_move = cpu.find_best_move()
+                self._game.place_move(cpu_move[0], cpu_move[1])
+            
             pg.display.update()
             self.CLOCK.tick(self._fps)
 
