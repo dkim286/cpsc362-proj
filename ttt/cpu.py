@@ -1,7 +1,7 @@
 import pygame as pg, sys
 import copy
 
-from random import random
+import random
 from ttt.game import Game
 
 # custom type that shows the x and y coordinates of the cell (x,y).
@@ -58,7 +58,7 @@ class Cpu:
         Returns:
             score (int): Negative for minimizer win, positive for maximizer win.
         '''
-
+        pass
 
 
     def _evaluate_game(self) -> int:
