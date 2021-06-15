@@ -1,11 +1,11 @@
 import pygame as pg, sys
 import copy
 
-import random
+from random import random
 from ttt.game import Game
 
 # custom type that shows the x and y coordinates of the cell (x,y).
-_move = list[int, int]
+_move = (int, int)
 
 class Cpu:
     '''
@@ -35,21 +35,17 @@ class Cpu:
         '''
 
         # Calculate the random row and col
-        row = random.randint(1,3)
-        col = random.randint(1,3)
+        rand_rows = random.sample([1, 2, 3], 3)
+        rand_rows = random.sample([1, 2, 3], 3)
 
-        # If the CPU can not place a token, restart the function
-        if(not self._game.place_move(row, col)):
-            self.find_best_move()
+        for row in rand_rows:
+            for col in rand_cols:
+                # If a move can be placed, return those values
+                if self._game.place_move(row, col):
+                    _move = (row,) + (col,)
+                    return _move
 
-        # If a move can be placed, return those values
-        else:
-            _move.append(row)
-            _move.append(col)
-            return _move
-
-
-    def _min_max(self, min_max: bool) -> int:
+    def _min_max(self, depth: str, min_max: bool) -> int:
         '''
         Simulate all possible moves of the board and return the score once the
         simulation is finished.
@@ -62,7 +58,7 @@ class Cpu:
         Returns:
             score (int): Negative for minimizer win, positive for maximizer win.
         '''
-        pass
+
 
 
     def _evaluate_game(self) -> int:
