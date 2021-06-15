@@ -15,32 +15,33 @@ class Cpu:
 
     def __init__(self, game: Game):
         '''
-        Constructor for the Cpu class. 
+        Constructor for the Cpu class.
 
         Params:
-            game (Game): Reference to a game object. A deep-copy is taken as an instance variable.
+            game (Game): Reference to a game object. A deep-copy is taken as an
+            instance variable.
         '''
-        # make a copy of the ongoing game instead of ruining it 
+        # make a copy of the ongoing game instead of ruining it
         self._game = copy.deepcopy(game)
 
 
     def find_best_move(self) -> _move :
         '''
         Find the best possible move for the current game by starting the
-        recursive _min_max() call chain. 
+        recursive _min_max() call chain.
 
         Returns:
-            move (_move): A (row, col) list representing the best move. 
+            move (_move): A (row, col) list representing the best move.
         '''
-        
+
         # Calculate the random row and col
-        row = random.randit(1,3)
-        col = random.randit(1,3)
+        row = random.randint(1,3)
+        col = random.randint(1,3)
 
         # If the CPU can not place a token, restart the function
         if(not self._game.place_move(row, col)):
-            self.get_random_move()
-            
+            self.find_best_move()
+
         # If a move can be placed, return those values
         else:
             _move.append(row)
@@ -51,10 +52,10 @@ class Cpu:
     def _min_max(self, min_max: bool) -> int:
         '''
         Simulate all possible moves of the board and return the score once the
-        simulation is finished. 
+        simulation is finished.
 
         Parameters:
-            depth (str): Current depth of the recursive call. 
+            depth (str): Current depth of the recursive call.
             min_max (bool): Whether the current run is being calculated for the
                             the maximizer
 
@@ -69,8 +70,8 @@ class Cpu:
         Evaluate the finished game and return an appropriate score.
 
         Returns:
-            score (int): The score of the finished game. 
-                         - Negative = Minimizer wins 
+            score (int): The score of the finished game.
+                         - Negative = Minimizer wins
                          - Positive = Maximizer wins
                          - Zero = Draw (confirm this with Brandon
         '''
