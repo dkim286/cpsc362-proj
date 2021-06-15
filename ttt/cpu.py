@@ -36,7 +36,7 @@ class Cpu:
 
         # Calculate the random row and col
         rand_rows = random.sample([1, 2, 3], 3)
-        rand_rows = random.sample([1, 2, 3], 3)
+        rand_cols = random.sample([1, 2, 3], 3)
 
         for row in rand_rows:
             for col in rand_cols:
