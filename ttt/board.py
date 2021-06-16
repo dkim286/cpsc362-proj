@@ -68,28 +68,57 @@ class Board:
         '''
         while(True):
             for event in pg.event.get():
+                # Moved CPU Object to Here
+                cpu = Cpu(self._game)
                 if event.type == QUIT:
                     pg.quit()
                     sys.exit()
                 elif event.type == MOUSEBUTTONDOWN:
                     # checks winner
                     self.drawToken()
+                    # Working but very messy and buggy code below
+                    # Delete the ''' to try it out
+                    '''
+                    cpu_move = cpu.find_best_move()
+                    location = GRID_OFFSETS[cpu_move[0] - 1][cpu_move[1] - 1]
+                    cpu_previous_token = self._game.player
+                    cpu_good_move = self._game.place_move(cpu_move[0], cpu_move[1])
+                    if (cpu_good_move and cpu_previous_token == X):
+                        self._screen.blit(self._x_img, location)
+                    elif (cpu_good_move and cpu_previous_token == O):
+                        self._screen.blit(self._o_img, location)
+                    pg.display.update()
+                    winner, direction, value = self._game.win_checker()
+                    if winner != 'N':
+                        self._draw_winning_line(direction, value)
+                    game_over = False
+                    if winner == DRAW:
+                        self.render_message(DRAW_MSG)
+                        game_over = True
+                    elif winner == UNDECIDED:
+                        pass
+                    else:
+                        self.render_message(WIN_MSG.format(winner))
+                        game_over = True
+                    if game_over:
+                        self._game.reset_game()
+                        self._draw_ui()
+                    '''
                     winner, direction, value = self._game.win_checker()
                     if(winner != 'N'):
                         self._game.reset_game()
-                        
+                ## Code Below Causing Error ##        
                 # computer player's turn.
                 # takes place immediately after a user input event is handled
-                cpu = Cpu(self._game)
-                cpu_move = cpu.find_best_move()
-                self._game.place_move(cpu_move[0], cpu_move[1])
+                # cpu = Cpu(self._game)
+                # cpu_move = cpu.find_best_move()
+                # self._game.place_move(cpu_move[0], cpu_move[1])
                 # checks winner
-                self.drawToken()
+                #self.drawToken()
 
             pg.display.update()
             self.CLOCK.tick(self._fps)
-
-
+        
     def drawToken(self) -> None:
         '''
         Read the current game state and draw a token where appropriate.
