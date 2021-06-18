@@ -64,6 +64,20 @@ class Game:
             player (str): 'x' if it's X's turn. 'o' otherwise.
         '''
         return self._player
+
+    # helper to get the opponent token
+    def get_opponent(self) -> str:
+        '''
+    Returns the current opponent value.
+
+    Returns:
+        opponent (str): 'x' if it's o's turn. 'x' otherwise.
+    '''
+        if(self._player == X):
+            return O
+        else:
+            return X
+
     
     # Helper util to place an X or O onto the chosen space within the _board
     def place_move(self, row: int, col: int) -> bool:
