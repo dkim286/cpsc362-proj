@@ -77,14 +77,6 @@ class Board:
                     winner, direction, value = self._game.win_checker()
                     if(winner != 'N'):
                         self._game.reset_game()
-                        
-                # computer player's turn.
-                # takes place immediately after a user input event is handled
-                cpu = Cpu(self._game)
-                cpu_move = cpu.find_best_move()
-                self._game.place_move(cpu_move[0], cpu_move[1])
-                # checks winner
-                self.drawToken()
 
             pg.display.update()
             self.CLOCK.tick(self._fps)
@@ -137,7 +129,35 @@ class Board:
 
         # Check if anyone has won. If so, consider the game to be over.
         winner, direction, value = self._game.win_checker()
-        # print("draw token:    winner: " + winner, " direction: " + direction, " value: " + value)
+        if winner != 'N':
+            self._draw_winning_line(direction, value)
+
+        else:
+            # computer player's turn.
+            # takes place immediately after a user input event is handled
+            cpu = Cpu(self._game)
+            cpu.printBoard()
+            cpu_move = cpu.find_best_move()
+        
+            # checks winner
+            row1 = cpu_move[0]
+            col1 = cpu_move[1]
+            
+            location = GRID_OFFSETS[row1][col1]
+            # Place the token
+            previous_token = self._game.player
+
+            good_move = self._game.place_move(row1 + 1, col1 + 1)
+
+            if (good_move and previous_token == X):
+                self._screen.blit(self._x_img, location)
+
+            elif (good_move and previous_token == O):
+                self._screen.blit(self._o_img, location)
+
+            pg.display.update()
+            # Check if anyone has won. If so, consider the game to be over.
+            winner, direction, value = self._game.win_checker()
 
         if winner != 'N':
             self._draw_winning_line(direction, value)

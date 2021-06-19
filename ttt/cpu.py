@@ -2,7 +2,7 @@ import pygame as pg, sys
 import copy
 
 import random
-from ttt.game import Game
+from ttt.game import *
 
 # custom type that shows the x and y coordinates of the cell (x,y).
 _move = (int, int)
@@ -23,8 +23,20 @@ class Cpu:
         '''
         # make a copy of the ongoing game instead of ruining it
         self._game = copy.deepcopy(game)
+        self._board = self._game._board
+        self._cpuPlayer = self._game._player
 
-    def find_best_move(self) -> _move :
+        self._opponent = X
+        if(self._cpuPlayer == X):
+            self._opponent = O
+        elif self._cpuPlayer == O:
+            self._opponent = X
+
+    def printBoard(self):
+        print("printing board")
+        print(self._board)
+
+    def find_best_move(self):
         '''
         Find the best possible move for the current game by starting the
         recursive _min_max() call chain.
@@ -32,44 +44,39 @@ class Cpu:
         Returns:
             move (_move): A (row, col) list representing the best move.
         '''
+        bestVal = -1000
+        bestMove = (-1, -1)
+    
+        # Traverse all cells, evaluate minimax function for
+        # all empty cells. And return the cell with optimal
+        # value.
+        for i in range(3) :    
+            for j in range(3) :
+            
+                # Check if cell is empty
+                if (self._board[i][j] is None) :
+    
 
-        # Calculate the random row and col
-        rand_rows = random.sample([1, 2, 3], 3)
-        rand_cols = random.sample([1, 2, 3], 3)
-
-        for row in rand_rows:
-            for col in rand_cols:
-                # If a move can be placed, return those values
-                if self._game.place_move(row, col):
-                    _move = (row,) + (col,)
-                    return _move
-
-        # # For when CPU start working, this would be the call for _min_max:
-        # bestVal = -1000
-        # bestMove = (-1, -1)
-
-        # # Traverse all cells, evaluate minimax function
-        # for i in range(3) :
-        #     for j in range(3) :
-
-        #         # Check if cell is empty
-        #             if (self._game._board[i][j] == None) :
-
-        #                 # Make a move
-        #                 self._game._board[i][j] = self._game.player
-
-        #                 # Compute if it was a good move
-        #                 moveValuation = self._min_max(0, False)
-
-        #                 # Undo the move
-        #                 board[i][j] = None
-
-        #                 # If the value of the current move is better, store it
-        #                 if (moveValuation > bestVal) :
-        #                     bestMove = (i, j)
-        #                     bestVal = moveVal
-
-        # return bestMove
+                    # Make the move
+                    self._board[i][j] = self._cpuPlayer
+    
+                    # compute evaluation function for this
+                    # move.
+                    moveVal = self._min_max(0, False)
+    
+                    # Undo the move
+                    self._board[i][j] = None
+                    
+                    # If the value of the current move is
+                    # more than the best value, then update
+                    # best/
+                    if (moveVal > bestVal) :               
+                        bestMove = (i, j)
+                        bestVal = moveVal
+    
+        print("The value of the best Move is (tuple) :", bestMove)
+        return bestMove
+            
 
     def _min_max(self, depth: int, min_max: bool) -> int:
         '''
@@ -77,7 +84,7 @@ class Cpu:
         simulation is finished.
 
         Parameters:
-            depth (int): Current depth of the recursive call.
+            depth (str): Current depth of the recursive call.
             min_max (bool): Whether the current run is being calculated for the
                             the maximizer
 
@@ -85,59 +92,66 @@ class Cpu:
             score (int): Negative for minimizer win, positive for maximizer win.
         '''
         score = self._evaluate_game()
-
-        # If max has won the game
-        if (score == 10):
+    
+        # If Maximizer has won the game return his/her
+        # evaluated score
+        if (score == 10) :
             return score
-
-        # If min has won the game
-        if (score == -10):
+    
+        # If Minimizer has won the game return his/her
+        # evaluated score
+        if (score == -10) :
             return score
-
-        # If there are no more moves and no winner, than tie
-        if (self.isMovesLeft() == False):
+    
+        # If there are no more moves and no winner then
+        # it is a tie
+        if (self.isMovesLeft() == False) :
             return 0
-
-        # If this max's move
-        if (min_max):
+    
+        # If this maximizer's move
+        if (min_max) :    
             best = -1000
-
-            # Look through the board
-            for i in range(3) :        
-                for j in range(3) :
-                    # Check if cell is empty
-                    if (self._game._board[i][j] == None) :
-                    
-                        # Make the move
-                        self._game._board[i][j] = self._game.player
     
-                        # Call minimax recursively and choose the maximum value
-                        best = max(best, self._min_max(depth + 1, not min_max))
-    
-                        # Undo the move
-                        self._game._board[i][j] = None
-            return best
-
-        # If this min's move
-        else :
-            best = 1000
- 
-            # Traverse the board
+            # Traverse all cells
             for i in range(3) :        
                 for j in range(3) :
                 
                     # Check if cell is empty
-                    if (self._game._board[i][j] == None) :
+                    if (self._board[i][j] is None) :
                     
-                        # Make the move and place the opponent's
-                        self._game._board[i][j] = self._game.get_opponent()
+                        # Make the move
+                        self._board[i][j] = self._cpuPlayer
     
-                        # Call minimax recursively and choose the minimum value
-                        best = min(best, self._min_max(depth + 1, not min_max))
-    
+                        # Call minimax recursively and choose
+                        # the maximum value
+                        best = max( best, self._min_max(depth + 1, not min_max))
+                           
                         # Undo the move
-                        board[i][j] = None
+                        self._board[i][j] = None
             return best
+    
+        # If this minimizer's move
+        else :
+            best = 1000
+    
+            # Traverse all cells
+            for i in range(3) :        
+                for j in range(3) :
+                
+                    # Check if cell is empty
+                    if (self._board[i][j] is None) :
+                    
+                        # Make the move
+                        self._board[i][j] = self._opponent
+    
+                        # Call minimax recursively and choose
+                        # the minimum value
+                        best = min(best, self._min_max(depth + 1, not min_max))  
+
+                        # Undo the move
+                        self._board[i][j] = None
+            return best
+
 
     def _evaluate_game(self) -> int:
         '''
@@ -149,42 +163,47 @@ class Cpu:
                          - Positive = Maximizer wins
                          - Zero = Draw (confirm this with Brandon
         '''
-        # Checking for Rows for X or O victory
-        for row in range(3) :
-            if (self._game.board[row][0] == self._game.board[row][1] and self._game.board[row][1] == self._game.board[row][2]) :
-                if (self._game.board[row][0] == self._game.player) :
+        # Checking for Rows for X or O victory.
+        for row in range(3) :    
+            if (self._board[row][0] == self._board[row][1] and self._board[row][1] == self._board[row][2]) :       
+                if (self._board[row][0] == self._cpuPlayer) :
                     return 10
-                elif (self._game.board[row][0] == self._game.get_opponent()):
+                elif (self._board[row][0] == self._opponent) :
                     return -10
-
-        # Checking for Columns for X or O victory
+    
+        # Checking for Columns for X or O victory.
         for col in range(3) :
-            if (self._game.board[0][col] == self._game.board[1][col] and self._game.board[1][col] == self._game.board[2][col]) :
-                if (self._game.board[0][col] == self._game.player) :
+        
+            if (self._board[0][col] == self._board[1][col] and self._board[1][col] == self._board[2][col]) :
+            
+                if (self._board[0][col] == self._cpuPlayer) :
                     return 10
-                elif (self._game.board[0][col] == self._game.get_opponent()):
+                elif (self._board[0][col] == self._opponent) :
                     return -10
-
-        # Checking for Diagonals for X or O victory
-        if (self._game.board[0][0] == self._game.board[1][1] and self._game.board[1][1] == self._game.board[2][2]) :
-            if (self._game.board[0][0] == self._game.player) :
+    
+        # Checking for Diagonals for X or O victory.
+        if (self._board[0][0] == self._board[1][1] and self._board[1][1] == self._board[2][2]) :
+        
+            if (self._board[0][0] == self._cpuPlayer) :
                 return 10
-            elif (self._game.board[0][0] == self._game.get_opponent()) :
+            elif (self._board[0][0] == self._opponent) :
                 return -10
-
-        if (self._game.board[0][2] == self._game.board[1][1] and self._game.board[1][1] == self._game.board[2][0]) :
-            if (self._game.board[0][2] == self._game.player) :
+    
+        if (self._board[0][2] == self._board[1][1] and self._board[1][1] == self._board[2][0]) :
+        
+            if (self._board[0][2] == self._cpuPlayer) :
                 return 10
-            elif (self._game.board[0][2] == self._game.get_opponent()) :
+            elif (self._board[0][2] == self._opponent) :
                 return -10
-
+    
         # Else if none of them have won then return 0
         return 0
 
-    # This function returns true if there are moves remaining
-    def isMovesLeft(self) -> bool:
-        for i in range(3) :
-            for j in range(3) :
-                if (self._game.board[i][j] == None):
+    # this will return true if any cells are empty or it will return false
+    def isMovesLeft(self) :
+    
+        for row in range(3) :
+            for col in range(3) :
+                if (self._board[row][col] is None) :
                     return True
         return False
