@@ -2,6 +2,13 @@
 
 This module should be responsible for spawning a dialogue window that asks the player whether they want to play a hotseat game (PvP) or agains the computer (PvCpu). 
 
+## Dependencies 
+
+Dialogues and buttons seem to be from a module called `pygame_gui`: 
+
+- [pygame_gui](https://pygame-gui.readthedocs.io/en/latest/index.html)
+- [Doc about listening to button clicks](https://pygame-gui.readthedocs.io/en/latest/events.html)
+
 ## RFC: Hypothetical Use 
 
 For this to work, a few of the modules would have to be modified: 
