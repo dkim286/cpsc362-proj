@@ -56,6 +56,22 @@ For this to work, a few of the modules would have to be modified:
      └───────┘                                        └────────────┘          └───────┘          └────────┘
 ```
 
+```
+,-------------------------------.
+|CpuSelect                      |
+|-------------------------------|
+|                               |
+|    _btn_hotseat               |
+|    _btn_cpu                   |
+|    _window                    |
+|                               |
+|    is_hotseat() -> bool       |
+|    _spawn_dialog() -> None    |
+|    _listen_for_clicks() -> str|
+|    _destroy_dialog() -> None  |
+`-------------------------------'
+```
+
 ## Potential Modifications to the Existing Code 
 
 If the above outlined scheme is used, then the existing code would have to be modified slightly.
