@@ -62,7 +62,7 @@ class Board:
         self._draw_ui()
 
 
-    def run(self) -> None:
+    def run(self, is_hotseat) -> None:
         '''
         Runs the game in an infinite loop, accepting user input all the while.
         '''
@@ -73,7 +73,7 @@ class Board:
                     sys.exit()
                 elif event.type == MOUSEBUTTONDOWN:
                     # checks winner
-                    self.drawToken()
+                    self.drawToken(is_hotseat)
                     winner, direction, value = self._game.win_checker()
                     if(winner != 'N'):
                         self._game.reset_game()
@@ -82,7 +82,7 @@ class Board:
             self.CLOCK.tick(self._fps)
 
 
-    def drawToken(self) -> None:
+    def drawToken(self, is_hotseat) -> None:
         '''
         Read the current game state and draw a token where appropriate.
         '''
@@ -132,7 +132,7 @@ class Board:
         if winner != 'N':
             self._draw_winning_line(direction, value)
 
-        else:
+        elif not is_hotseat:
             # computer player's turn.
             # takes place immediately after a user input event is handled
             cpu = Cpu(self._game)
