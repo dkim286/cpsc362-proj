@@ -132,7 +132,7 @@ class Board:
         if winner != 'N':
             self._draw_winning_line(direction, value)
 
-        elif not is_hotseat:
+        elif is_hotseat == 'CPU':
             # computer player's turn.
             # takes place immediately after a user input event is handled
             cpu = Cpu(self._game)

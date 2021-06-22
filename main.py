@@ -15,6 +15,8 @@ from ttt.cpuselect import *
 def main():
     select = CpuSelect()
     is_hotseat = select.is_hotseat()
+    if is_hotseat == 'EXIT':
+        quit()
     game = Game()
     board = Board(game)
     board.run(is_hotseat)

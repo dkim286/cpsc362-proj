@@ -5,7 +5,7 @@ from ttt.colors import *
 
 OPT_HOTSEAT = 'HOTSEAT'
 OPT_CPU = 'CPU'
-
+OPT_EXIT = 'EXIT'
 class CpuSelect: 
     '''
     A class that represents the dialog that pops up when the game is first run.
@@ -32,10 +32,7 @@ class CpuSelect:
 
         click_result = self._listen_for_clicks()
 
-        if click_result == OPT_HOTSEAT: 
-            return True 
-        else:
-            return False
+        return click_result
 
 
     def _spawn_dialog(self) -> None: 
@@ -56,9 +53,10 @@ class CpuSelect:
         self.background = pg.Surface(window_size)
         self.background.fill(BLACK)
         self._manager = pgui.UIManager((800, 600))
+        
         self._btn_hotseat = pgui.elements.UIButton(relative_rect=pg.Rect((350, 275), (100, 50)), text='PvP', manager=self._manager)
         self._btn_cpu = pgui.elements.UIButton(relative_rect=pg.Rect((350, 225), (100, 50)), text='Solo', manager=self._manager)
-        # self._btn_exit = pgui.elements.UIButton(relative_rect=pg.Rect((350, 325), (100, 50)), text='Exit', manager=self._manager) // In-Progress
+        self._btn_exit = pgui.elements.UIButton(relative_rect=pg.Rect((350, 325), (100, 50)), text='Exit', manager=self._manager)
 
     def _listen_for_clicks(self) -> str: 
         '''
@@ -78,6 +76,8 @@ class CpuSelect:
                             return OPT_HOTSEAT
                         elif event.ui_element == self._btn_cpu: 
                             return OPT_CPU
+                        elif event.ui_element == self._btn_exit:
+                            return OPT_EXIT
                 self._manager.process_events(event)
             self._update_ui(timer)
             
