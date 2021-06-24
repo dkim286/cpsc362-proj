@@ -16,13 +16,13 @@ This module represents the board and screen of Tic Tac Toe.
 +-----+-----+-----+
 ```
 
-## Assumptions 
+## Gameplay
 
-- Each player will click one of the 9 availalble squares.
+- Each player has to click one of the 9 availalble squares in each turn. The winner is displayed on the board when a player wins or if the game ends with a draw.
 
 ## Board Methods
   - `drawToken`
-    - This method draws a token to the board of the screen.
+    - This method reads the current state of the game and draws a token to the board of the screen.
   - `drawRowLine`
     - This method draws the winning line across the row passed in.
   - `drawColumnLine`
@@ -31,79 +31,51 @@ This module represents the board and screen of Tic Tac Toe.
     - This method draws the winning line diagonally from right to left.
   - `drawDiagonalLTR`
     - This method draws the winning line diagonally from left to right.
-  - `renderBoard`
-    - This method takes the copied rendered message and posts it onto the board   
+  - `render_message`
+    - This method takes the copied rendered message and posts it onto the board.
+  - `render_status_area`
+    - This method renders the status area at the bottom of the board.
+  - `_draw_ui`
+    - This method draws the Initial tic tac toe board on the UI with rows and columns hihglighted in red.
   - `_draw_winning_line`
     - This method draws the winning lines given the context of "row", "column", "LTR" diagonal , or "RTL" diagonal with the corresponding row  number or column number
 
-## Potential Use Examples 
-
-```python
-from ttt.board.py import *         # Board 
-
-Board board
-
-board.drawToken('X')
-board.drawToken('O')
-board.drawRowLine(1)
-board.drawColumnLine(1)
-board.drawDiagonalRTL()
-board.drawDiagonalLTR()
-board.renderBoard()
-```
 
 # Design
 
 ## `Board` Class
 
-This class is **purely for rendering the UI** based on the state of the `Game` instance contained within. It should contain no game logic besides calling on high-level `Game` functions to either read or modify the game state.
+This class is **purely for rendering the UI** based on the state of the `Game` instance contained within. It is mainly used to call the `Game` functions to read, modify the game state.
 
-The `Board` class should have the these functions visible publicly (rename these or add more as more stuff gets prototyped):
+The `Board` class has the *run()* function visible publicly :
 
 - `Board.run() -> None`
-  - Starts an infinite loop to keep the game going.
+  - Starts an infinite loop to keep the game going by accepting the user input.
 
-## Interaction With `game.py`
-
-The `Board` object should contain a reference to the `Game` object, which represents the current state of the game:
-
-```python
-from ttt.game import Game
-
-class Board():
-    __init__(self, game: Game):
-        self._game = game
-        self._screen = pg.display.set_mode('...')
-
-    # ...
-    # snip
-    # ...
-```
-
-The game instance reference is passed by the main function: 
+The game instance reference is passed by the main function:
 ```
      ┌───────┐                ┌───────┐          ┌────────┐
      │main.py│                │game.py│          │board.py│
      └───┬───┘                └───┬───┘          └───┬────┘
-         │"construct Game object" │                  │     
-         │───────────────────────>│                  │     
-         │                        │                  │     
-         │     Game instance      │                  │     
-         │<───────────────────────│                  │     
-         │                        │                  │     
-         │        "construct Board instance"         │     
-         │──────────────────────────────────────────>│     
-         │                        │                  │     
-         │        reference to Game instance         │     
-         │──────────────────────────────────────────>│     
-         │                        │                  │     
-         │              Board instance               │     
-         │<──────────────────────────────────────────│     
+         │"construct Game object" │                  │
+         │───────────────────────>│                  │
+         │                        │                  │
+         │     Game instance      │                  │
+         │<───────────────────────│                  │
+         │                        │                  │
+         │        "construct Board instance"         │
+         │──────────────────────────────────────────>│
+         │                        │                  │
+         │        reference to Game instance         │
+         │──────────────────────────────────────────>│
+         │                        │                  │
+         │              Board instance               │
+         │<──────────────────────────────────────────│
      ┌───┴───┐                ┌───┴───┐          ┌───┴────┐
      │main.py│                │game.py│          │board.py│
      └───────┘                └───────┘          └────────┘
 ```
-## Class Diagram 
+## Class Diagram
 
 `Board` *contains* `Game`:
 
@@ -113,139 +85,62 @@ The game instance reference is passed by the main function:
 |---------------------------------------|
 |-_ttt: list                            |
 |+place_move(row: int, col: int) -> bool|
-|+current_player() -> str               |
-|+check_win_cond() -> str               |
+|+player() -> str               |
+|+win_checker() -> tuple(str)           |
+|+reset_game() -> void                  |
 `---------------------------------------'
-                    |                    
-                    |                    
-       ,------------------------.        
-       |Board                   |        
-       |------------------------|        
-       |-_game: Game            |        
-       |-_screen: pygame.Surface|        
-       |+run() -> None          |        
-       `------------------------'   
+                    |
+                    |
+       ,------------------------.
+       |Board                   |
+       |------------------------|
+       |-_game: Game            |
+       |-_screen: pygame.Surface|
+       |+run() -> None          |
+       `------------------------'
 ```
 
-## Running the Game
+## Reading and Modifying the Game State
 
-The `run()` function should have an infinite loop somewhere that runs the game continuously when called upon by `main.py`:
+The game's current state is kept track by the `Game` instance variable.
 
-**main.py**:
-
-```python
-from ttt.game import Game
-from ttt.board import Board
-
-def main():
-    game = Game()
-    board = Board(game)
-    
-    board.run()
-
-    # snip
-```
-
-**board.py**:
-
-```python
-import pygame as pg 
-
-class Board:
-    # snip
-
-    def run(self):
-        # the following is purely for example.
-        # the actual implementation might differ.
-        while(True):
-            for event in pg.event.get():
-                if event.type == QUIT:
-                    pg.quit()
-                    sys.exit()
-                elif event.type == MOUSEBUTTONDOWN:
-                    self._userClick()
-                    if(winner or draw):
-                        self._reset_game()
-                    
-            pg.display.update()
-            CLOCK.tick(fps)
+The current player is determined by the board from the `Game` object calling the `player() -> str` function visible publicly:
 
 ```
-
-## Reading and Modifying the Game State 
-
-The game's current state is kept track by the `Game` instance variable. 
-
-For example, assuming that the current player needs to be determined by the board and that `Game` object has a `current_player() -> str` function visible publicly:
-
-```
-     ┌─────┐                             ┌─────┐
-     │Board│                             │_game│
-     └──┬──┘                             └──┬──┘
-        │   self._game.current_player()     │   
-        │──────────────────────────────────>│   
-        │                                   │   
-        │          ret 'x' or 'o'           │   
-        │<──────────────────────────────────│   
-        │                                   │   
-        ────┐                               │   
-            │ (do something with 'x' or 'o')│   
-        <───┘                               │   
-     ┌──┴──┐                             ┌──┴──┐
-     │Board│                             │_game│
-     └─────┘                             └─────┘
+     ┌─────┐                                ┌─────┐
+     │Board│                                │_game│
+     └──┬──┘                                └──┬──┘
+        │   self._game.player()                │
+        │─────────────────────────────────────>│
+        │                                      │
+        │          ret 'x' or 'o'              │
+        │<─────────────────────────────────────│
+        │                                      │
+        ────┐                                  │
+            │ (set game state with 'x' or 'o') │
+        <───┘                                  │
+     ┌──┴──┐                                ┌──┴──┐
+     │Board│                                │_game│
+     └─────┘                                └─────┘
 ```
 
-Another example:
-- The board observes a user click event on row 2 and col 1 and needs to modify the game's state accordingly
-- `Game` object has a `place_move(row: int, col: int) -> bool` visible publicly
+- The board observes a user click event on row x and col y and needs to modify the game's state accordingly
+- `Game` object has a `place_move(row: int, col: int) -> bool` visible publicly when called from the board class sets the grid(x,y) with the current player, changes the active player and returns true on success. If the cell is already chosen earlier by either player, it returns a false.
 
 ```
-     ┌─────┐                                  ┌─────┐
-     │Board│                                  │_game│
-     └──┬──┘                                  └──┬──┘
-        │      self._game.place_move(2, 1)       │   
-        │───────────────────────────────────────>│   
-        │                                        │   
-        │ret True if valid move, False otherwise │   
-        │<───────────────────────────────────────│   
-        │                                        │   
-        ────┐                                    │   
-            │ (do something with True or False)  │   
-        <───┘                                    │   
-     ┌──┴──┐                                  ┌──┴──┐
-     │Board│                                  │_game│
-     └─────┘                                  └─────┘
-```
-
-## Quitting Gracefully (or not)
-
-The `run()` function can either handle exiting the program itself or let `main.py` decide:
-
-```
-     ┌───────┐          ┌───────┐          ┌────────┐
-     │main.py│          │game.py│          │board.py│
-     └───┬───┘          └───┬───┘          └───┬────┘
-         │  game = Game()   │                  │     
-         │─────────────────>│                  │     
-         │                  │                  │     
-         │ (Game instance)  │                  │     
-         │<─────────────────│                  │     
-         │                  │                  │     
-         │        board = Board(game)          │     
-         │────────────────────────────────────>│     
-         │                  │                  │     
-         │          (Board instance)           │     
-         │<────────────────────────────────────│     
-         │                  │                  │     
-         ────┐              │                  │     
-             │ board.run()  │                  │     
-         <───┘              │                  │     
-         │                  │                  │     
-         ────┐              │                  │     
-             │ sys.exit()   │                  │     
-         <───┘              │                  │     
-     ┌───┴───┐          ┌───┴───┐          ┌───┴────┐
-     │main.py│          │game.py│          │board.py│
-     └───────┘          └───────┘          └────────┘
+     ┌─────┐                                     ┌─────┐
+     │Board│                                     │_game│
+     └──┬──┘                                     └──┬──┘
+        │      self._game.place_move(2, 1)          │
+        │──────────────────────────────────────────>│
+        │                                           │
+        │ret True if valid move, False otherwise    │
+        │<──────────────────────────────────────────│
+        │                                           │
+        ────┐                                       │
+            │ (check game state with True or False) │
+        <───┘                                       │
+     ┌──┴──┐                                     ┌──┴──┐
+     │Board│                                     │_game│
+     └─────┘                                     └─────┘
 ```

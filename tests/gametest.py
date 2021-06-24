@@ -34,7 +34,7 @@ def test_check_row_win() -> None:
     game = Game()
     game._board = board
     winner, direction, value = game.win_checker()
-    assert winner == 'y'
+    assert winner == 'x'
 
 def test_check_first_diagonal_win() -> None:
     '''
