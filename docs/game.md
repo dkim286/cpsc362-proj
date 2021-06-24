@@ -6,27 +6,36 @@ This module represents the state of the game. It handles all game logic and **sh
 
 ## `Game` Class
 
-### Public
+### Game Methods
+  - `win_checker`
+	- This method checks for a winning row, column, or diagonal line on the board
+	- Will return a Draw if the whole board is filled up and there are no winning lines
+	- Will return Undecided if the board still has available space and there are no winning lines
+  - `reset_game`
+	- This method will reset the game by cleaning the entire board of X's and O's
+	- Resets when there is a winner or a tie
+	- Potential Feature: Reset when user clicks on a button to reset board during the game
+  - `player`
+	- This method will return the current player's move on the board
+  - `get_opponent`
+	- This method will return the current opponent's move on the board
+  - `place_move`
+	- This method will place an X or an O, depending on who's turn it is, depending on the space the active player chose
+  - `_change_player`
+	- This method will cycle turns, after the current player does their move, and allow the other player to play
+  - `_winner`
+	- This method will determine and return who the winner is depending on who's turn it is and whether there is a winning line
 
-The `Game` class should have functions similar to these visible publicly (rename these, make changes, or add more as the module changes):
 
-- `Game.place_move(row: int, col: int) -> bool`
-  - Attempt to place a move in [`row`, `col`], where each value ranges from 1 to 3 inclusive. 
-  - Return `True` if valid. Return `False` otherwise. 
-- `Game.current_player() -> str`
-  - Return `'x'` if it's X's turn. Return `'o'` if it's O's turn. 
-- `Game.check_win_condition() -> str`
-  - Determine the win condition. 
-  - Return `'x'` or `'o'` if X or O won, respectively. Return `'draw'` if it's a draw.
-
-### Private 
+### Constructor 
 
 The state of the game is tracked via a nested list representing the 3x3 grid:
 
 ```python 
 class Game:
     __init__(self):
-        self._ttt = [[None] * 3,
+		self._player = X
+        self._board = [[None] * 3,
                      [None] * 3, 
                      [None] * 3]
         # snip
