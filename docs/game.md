@@ -34,7 +34,7 @@ The state of the game is tracked via a nested list representing the 3x3 grid:
 ```python 
 class Game:
     __init__(self):
-		self._player = X
+	self._player = X
         self._board = [[None] * 3,
                      [None] * 3, 
                      [None] * 3]
