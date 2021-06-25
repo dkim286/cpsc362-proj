@@ -96,10 +96,11 @@ class CpuSelect:
         pg.display.update()
     
     # Function not used at the moment, may be potentially used when we implement Exit Button
+    '''
     def _destroy_dialog(self) -> None: 
-        '''
+        
         Helper function for destroying the current dialogue. 
         Do we have to "de-init" pygame for when Board.py takes over? I don't know. 
-        '''
+        
         self._window.quit()   # uhh, does this exist? 
-
+    '''
