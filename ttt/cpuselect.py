@@ -1,5 +1,6 @@
-import pygame as pg 
+import pygame as pg, sys
 import pygame_gui as pgui
+from pygame.locals import QUIT
 
 from ttt.colors import * 
 
@@ -78,6 +79,9 @@ class CpuSelect:
                             return OPT_CPU
                         elif event.ui_element == self._btn_exit:
                             return OPT_EXIT
+                if event.type == QUIT:
+                    pg.quit()
+                    sys.exit()
                 self._manager.process_events(event)
             self._update_ui(timer)
             
