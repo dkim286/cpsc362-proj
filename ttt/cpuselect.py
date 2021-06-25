@@ -6,7 +6,7 @@ from ttt.colors import *
 
 OPT_HOTSEAT = 'HOTSEAT'
 OPT_CPU = 'CPU'
-OPT_EXIT = 'EXIT'
+
 class CpuSelect: 
     '''
     A class that represents the dialog that pops up when the game is first run.
@@ -78,7 +78,8 @@ class CpuSelect:
                         elif event.ui_element == self._btn_cpu: 
                             return OPT_CPU
                         elif event.ui_element == self._btn_exit:
-                            return OPT_EXIT
+                            pg.quit()
+                            sys.exit()
                 if event.type == QUIT:
                     pg.quit()
                     sys.exit()
