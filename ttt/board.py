@@ -19,7 +19,7 @@ OPENING_IMG_PATH = IMG_DIR + 'ttt_opening.jpg'
 GAME_NAME = 'Tic Tac Toe'
 WIN_MSG = "Player {} has won!"
 DRAW_MSG = "It's a draw."
-
+INVALID_MSG = "Invalid position."
 
 class Board:
     def __init__(self, game: Game):
@@ -111,8 +111,11 @@ class Board:
         '''
         Read the current game state and draw a token where appropriate.
         '''
+        self._render_status_area()
+
         # get coordinates of mouse click
         x, y = pg.mouse.get_pos()
+        print("x, y " + str(x) + ", " + str(y) + " ")
         thickness = 4
 
         # get column of mouse click
@@ -135,7 +138,7 @@ class Board:
         else:
             row = None
 
-        # If the user clicked a an area within bounds, place the token
+        # If the user clicked an area within bounds, place the token
         if(row and col):
             location = GRID_OFFSETS[row - 1][col - 1]
 
@@ -144,6 +147,10 @@ class Board:
 
             good_move = self._game.place_move(row, col)
 
+            if (good_move == False):
+                self.render_message(INVALID_MSG)
+                return 
+
             if (good_move and previous_token == X):
                 self._screen.blit(self._x_img, location)
 
@@ -151,6 +158,10 @@ class Board:
                 self._screen.blit(self._o_img, location)
 
             pg.display.update()
+        
+        elif (row == None and (not(x <= 100 and y <= 450)) and (not(x >= 300 and y <= 450 ))):
+            self.render_message(INVALID_MSG)
+            return 
 
         # Check if anyone has won. If so, consider the game to be over.
         winner, direction, value = self._game.win_checker()
@@ -286,7 +297,7 @@ class Board:
         self._screen.blit(text, text_rect)
 
         pg.display.update()
-        time.sleep(3)
+        time.sleep(1)
 
 
     def _render_status_area(self) -> None:
