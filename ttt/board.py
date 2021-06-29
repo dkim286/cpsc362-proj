@@ -2,6 +2,8 @@ import time
 
 import pygame as pg, sys
 from pygame.locals import *
+import pygame_gui as pgui
+from pygame.locals import QUIT
 
 from ttt.dimensions import *
 from ttt.colors import *
@@ -50,7 +52,12 @@ class Board:
         splash_screen = pg.transform.scale(splash_screen, UI_SIZE)
         self._x_img = pg.transform.scale(self._x_img, GRID_SIZE)
         self._o_img = pg.transform.scale(self._o_img, GRID_SIZE)
-
+        
+        # reset and quit button
+        self._manager = pgui.UIManager(UI_SIZE)
+        self._btn_reset = pgui.elements.UIButton(relative_rect=pg.Rect((0, 400), (100, 50)), text='Reset', manager=self._manager)
+        self._btn_quit = pgui.elements.UIButton(relative_rect=pg.Rect((300, 400), (100, 50)), text='Quit', manager=self._manager)
+        
         # display splash screen
         origin = (0, 0)
         self._screen.blit(splash_screen, origin)
@@ -66,7 +73,9 @@ class Board:
         '''
         Runs the game in an infinite loop, accepting user input all the while.
         '''
+        clock = pg.time.Clock()
         while(True):
+            timer = clock.tick(60)/1000.0
             for event in pg.event.get():
                 if event.type == QUIT:
                     pg.quit()
@@ -77,10 +86,26 @@ class Board:
                     winner, direction, value = self._game.win_checker()
                     if(winner != 'N'):
                         self._game.reset_game()
-
+                elif event.type == pg.USEREVENT:
+                    if event.user_type == pgui.UI_BUTTON_PRESSED:
+                        if event.ui_element == self._btn_reset:
+                            self._game.reset_button()
+                            self._draw_ui()
+                        if event.ui_element == self._btn_quit:
+                            pg.quit()
+                            sys.exit()
+                self._manager.process_events(event)
+            self._create_button(timer)
             pg.display.update()
             self.CLOCK.tick(self._fps)
-
+            
+    def _create_button(self, timer) -> None:
+        '''
+        Helper function for showing buttons at the bottom of the game screen
+        '''
+        self._manager.update(timer)
+        self._manager.draw_ui(self._screen)
+        pg.display.update()
 
     def drawToken(self, is_hotseat) -> None:
         '''

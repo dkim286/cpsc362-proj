@@ -54,6 +54,12 @@ class Game:
         elif self._winner() == O:
             self._player = X
         self._board = [[None]*3,[None]*3,[None]*3]
+    
+    # Helper util to reset board during a game
+    # Sets Player to X everytime
+    def reset_button(self):
+        self._player = X
+        self._board = [[None]*3,[None]*3,[None]*3]
 
     @property
     def player(self) -> str:
