@@ -24,8 +24,26 @@ def test_board_columns():
 
 # test the diagonals of the board.
 def test_board_diagonals():
-    board = Board()
-    pass
+    '''
+    Test the 2 possible diagonal vectors in the game board 2d matrix.
+
+    '''
+    board = [[None]*3, [None]*3, [None]*3]
+    expected_diagonalRTL = [None, None, None]
+    expected_diagonalLTR = [None, None, None]
+    diagonal_LTR = []
+    diagonal_RTL = []
+    for row in range(len(board)):
+        for col in range(len(row)):
+            if row == col:
+                # primary diagonal where row == col.
+                diagonal_LTR.append(board[row][col])
+            if ((row+col) == 3 - 1):
+                # secondary diagonal where row+col == n - 1 where n is the length
+                # of board.
+                diagonal_RTL.append(board[row][col])
+    assert expected_diagonalLTR == diagonal_LTR
+    assert expected_diagonalRTL == diagonal_RTL
 
 # test the rows of the board.
 def test_board_rows():
