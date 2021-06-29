@@ -115,7 +115,6 @@ class Board:
 
         # get coordinates of mouse click
         x, y = pg.mouse.get_pos()
-        print("x, y " + str(x) + ", " + str(y) + " ")
         thickness = 4
 
         # get column of mouse click
