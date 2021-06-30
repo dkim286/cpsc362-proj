@@ -4,7 +4,6 @@ from pygame.locals import QUIT
 class PlayerName():
     def __init__(self):
         self._name = ""
-        self._spawn_dialog()
 
     def _spawn_dialog(self) -> None:
         pg.init()
@@ -24,7 +23,7 @@ class PlayerName():
                         if self._name:
                             return None
                     elif event.key == pg.K_BACKSPACE:
-                        self._name = self._name.rstrip(name[-1])
+                        self._name = self._name.rstrip(self._name[-1])
                     elif event.key == pg.K_SPACE:
                         self._name += event.unicode
                     else:    
@@ -32,11 +31,14 @@ class PlayerName():
                                 self._name += event.unicode
                     
             screen.fill((0,0,0))
-            text_surface = base_font.render(name, True, (255,255,255))
+            text_surface = base_font.render(self._name, True, (255,255,255))
             screen.blit(text_surface, (0,0))
             
             pg.display.flip()
             clock.tick(30)
+
+    def _change_name(self, newName):
+        self._name = newName
 
     @property
     def name(self) -> str:

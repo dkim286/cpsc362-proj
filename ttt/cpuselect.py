@@ -20,7 +20,7 @@ class CpuSelect:
         '''
         self._spawn_dialog()
 
-    def is_hotseat(self) -> bool: 
+    def is_hotseat(self) -> str: 
         '''
         Spawns a dialogue that has two buttons:
         + [Hotseat]: PvP mode 

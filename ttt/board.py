@@ -22,7 +22,7 @@ DRAW_MSG = "It's a draw."
 INVALID_MSG = "Invalid position."
 
 class Board:
-    def __init__(self, game: Game):
+    def __init__(self, game: Game, player1, player2=None):
         '''
         Constructor for the Board object.
         Parameters:
@@ -65,6 +65,9 @@ class Board:
         # updating the display
         pg.display.update()
         time.sleep(2)
+
+        self._player1 = player1
+        self._player2 = player2
 
         self._draw_ui()
 
@@ -205,15 +208,23 @@ class Board:
         elif winner == UNDECIDED:
             pass
         else:
-            self.render_message(WIN_MSG.format(winner))
+            if winner == X:
+                self.render_message(WIN_MSG.format(self._player1.name))
+            else:
+                self.render_message(WIN_MSG.format(self._player2.name))
             game_over = True
 
         # If the game is over, reset and redraw the game.
         if game_over:
+            if is_hotseat != 'CPU':
+                # Swap the names of the players
+                player1Name = self._player1.name
+                player2Name = self._player2.name
+                self._player1._change_name(player2Name)
+                self._player2._change_name(player1Name)
+
             self._game.reset_game()
             self._draw_ui()
-
-
 
     def drawRowLine(self, row: int) -> None:
         '''
