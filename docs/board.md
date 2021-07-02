@@ -21,6 +21,8 @@ This module represents the board and screen of Tic Tac Toe.
 - Each player has to click one of the 9 availalble squares in each turn. The winner is displayed on the board when a player wins or if the game ends with a draw.
 
 ## Board Methods
+  - `_create_button`
+    - This method is for creating and showing the buttons at the bottom of the game screen.
   - `drawToken`
     - This method reads the current state of the game and draws a token to the board of the screen.
   - `drawRowLine`
